@@ -1,0 +1,220 @@
+.header {
+  background-color: #a20000;
+  color: white;
+  padding: 8px 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1200px; /* Giới hạn chiều rộng */
+  margin: 0 auto; /* Căn giữa */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px; /* thêm khoảng trống 2 bên */
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .logoText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.logo_category{
+    display: flex;
+}
+
+
+.categoryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.7rem;
+   margin-left: 30px;
+  width: 130px;
+  &:hover {
+    background-color: #b71c1c;
+  }
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 9999px; /* Bo tròn */
+  padding: 4px 8px;
+  width: 350px;
+  transition: all 0.2s ease;
+  color: gray;
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 6px 10px;
+    background: transparent;
+  }
+
+  button {
+    border: none;
+    background: #b71c1c; /* màu đỏ chủ đạo */
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background: #d32f2f; /* đỏ sáng hơn khi hover */
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 2px #ffcdd2; /* hiệu ứng khi nhập */
+  }
+}
+
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d66b6b;
+  border-radius: 8px;
+  padding: 6px 16px;
+  width: 140px;
+  font-size: 0.7rem;
+
+  strong {
+    display: block;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  .navItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    font-size: 0.7rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    gap: 1rem;
+
+    svg {
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+  }
+}
+
+/* --------------------------- */
+/* RESPONSIVE - MOBILE VERSION */
+/* --------------------------- */
+
+@media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .categoryBtn span {
+    display: none; /* Ẩn chữ Danh mục */
+  }
+
+  .contact,
+  .nav {
+    display: none; /* Ẩn các phần không cần ở mobile */
+  }
+
+  .searchBox {
+    width: 100%;
+    order: 3; /* Đưa xuống hàng dưới cùng */
+    max-width: none;
+  }
+
+  .logo {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .categoryBtn,
+  .logo,
+  .navItem:last-child {
+    flex-shrink: 0;
+  }
+
+  /* Giỏ hàng giữ bên phải */
+  .nav {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  .navItem span {
+    display: none; /* Ẩn chữ, chỉ giữ icon */
+  }
+
+  .navItem svg {
+    font-size: 1.4rem;
+  }
+
+  .logo_category{
+      flex-direction: row-reverse;
+      width: 100%;
+  }
+
+ 
+
+  .categoryBtn{
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .cuahangganban svg, .tracuudonhang svg, .taikhoan svg, .chinhsach svg{
+    display: none;
+  }
+  
+  .giohang svg{
+    order: 1;
+  }
+}

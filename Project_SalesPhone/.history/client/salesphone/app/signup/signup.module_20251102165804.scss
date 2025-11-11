@@ -1,0 +1,37 @@
+.signup{
+    background-color: brown;
+    padding: 2rem 12rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    background-color: white;
+    position: relative;
+}
+
+.title{
+    background-color: greenyellow;
+    text-align: center;
+}
+
+.greeting_form{
+    background-color: palevioletred;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+}
+.greeting{
+    background-color: aqua;
+}
+
+.form_container{
+    background-color: yellow;
+}
+
+.loginbtn_google{
+    background-color: burlywood;
+    position: absolute;
+    left: 9.5rem;
+    bottom: 6rem;
+}

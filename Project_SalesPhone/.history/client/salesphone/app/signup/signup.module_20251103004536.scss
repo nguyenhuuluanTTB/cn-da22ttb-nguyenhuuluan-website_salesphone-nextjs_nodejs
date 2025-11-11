@@ -1,0 +1,173 @@
+.signup{
+    padding: 2rem 15rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    background-color: white;
+    position: relative;
+    padding: 4rem 0;
+    border-radius: 8px;
+    box-shadow: 0 0 17px 2px rgb(61, 61, 61);
+}
+
+.title{
+    text-align: center;
+
+    h1{
+        font-weight: bold;
+        color: #A70000;
+    }
+}
+
+.greeting_form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    gap: 3.5rem;
+}
+.greeting{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 400px;
+    
+}
+
+.greeting p{
+    padding: 0 3rem;
+    text-align: left;
+}
+
+
+.greeting_title{
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+
+
+.form_container{
+    width: 38%;
+}
+
+.loginbtn_google{
+    position: absolute;
+    left: 10rem;
+    bottom: 12rem;
+    text-align: center;
+    margin: 0 auto;
+    
+
+    .continue_with_gg{
+        border: solid 2px rgb(0, 105, 209);
+        border-radius: 6px;
+        padding: 0.5rem 1.5rem;
+        gap: 1rem;
+        display: flex;
+        margin-top: 10px;
+        transition: transform 0.5s;
+        cursor: pointer;
+    }
+}
+
+.continue_with_gg:hover{
+    transform: scale(1.05);
+}
+
+.btndk{
+    background: #A70000;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    margin: 0 auto;
+    width: 200px;
+    display: block;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.btndk:hover{
+    transform: scale(1.05);
+}
+
+@media (max-width: 1095px) {
+    .signup{
+        padding: 2rem 10rem;
+    }
+
+    .title{
+        h1{
+            font-size: 1.5rem;
+        }
+    }
+
+    .container{
+        padding: 0;
+    }
+
+    
+    .greeting_form{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .greeting_title{
+        background-color: palevioletred;
+        text-align: center;
+    }
+
+    .greeting{
+        background-color: green;
+        margin: 0 auto;
+    }
+
+    .loginbtn_google{
+        bottom: 0;
+        left: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form{
+        margin-bottom: 50px;
+        background-color: yellow;
+    }
+}
+
+@media (max-width: 770px){
+    .signup{
+        padding: 2rem 7rem;
+    }
+}
+
+@media (max-width: 630px){
+    .signup{
+        padding: 2rem 4rem;
+    }
+}
+
+@media (max-width: 530px){
+    .signup{
+        padding: 2rem 2rem;
+    }
+
+    .loginbtn_google{
+        bottom: 0;
+        left: 2rem;
+        flex-direction: column;
+    }
+
+    .form_container{
+        width: 100%;
+    }
+
+    
+
+}
+
+

@@ -1,0 +1,69 @@
+.signup{
+    background-color: brown;
+    padding: 2rem 12rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    background-color: white;
+    position: relative;
+
+}
+
+.title{
+    background-color: greenyellow;
+    text-align: center;
+}
+
+.greeting_form{
+    background-color: palevioletred;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+}
+.greeting{
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    
+    
+}
+
+.greeting p{
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+
+.greeting_title{
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+
+
+.form_container{
+    background-color: yellow;
+}
+
+.loginbtn_google{
+    background-color: burlywood;
+    position: absolute;
+    left: 12rem;
+    bottom: 1rem;
+    text-align: center;
+    margin: 0 auto;
+
+    .continue_with_gg{
+        border: solid 2px rgb(0, 105, 209);
+        border-radius: 6px;
+        padding: 0.5rem 1.5rem;
+        gap: 1rem;
+        display: flex;
+        margin-top: 10px;
+    }
+}

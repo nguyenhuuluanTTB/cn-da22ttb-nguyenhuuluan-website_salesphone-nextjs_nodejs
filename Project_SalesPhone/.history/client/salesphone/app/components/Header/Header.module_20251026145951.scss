@@ -1,0 +1,137 @@
+.header {
+  background-color: #a20000;
+  color: white;
+  padding: 8px 24px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1200px; /* Giới hạn chiều rộng */
+  margin: 0 auto; /* Căn giữa */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px; /* thêm khoảng trống 2 bên */
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .logoText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.categoryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: #b71c1c;
+  }
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 9999px; /* Bo tròn */
+  padding: 4px 8px;
+  width: 350px;
+  transition: all 0.2s ease;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 6px 10px;
+    background: transparent;
+  }
+
+  button {
+    border: none;
+    background: #b71c1c; /* màu đỏ chủ đạo */
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background: #d32f2f; /* đỏ sáng hơn khi hover */
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 2px #ffcdd2; /* hiệu ứng khi nhập */
+  }
+}
+
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #d66b6b;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+
+  strong {
+    display: block;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  .navItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    svg {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

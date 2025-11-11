@@ -1,0 +1,67 @@
+.login{
+    padding: 2rem 10rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    background-color: white;
+    position: relative;
+    padding: 4rem 0;
+    border-radius: 8px;
+    box-shadow: 0 0 17px 2px rgb(61, 61, 61);
+}
+
+.title{
+    text-align: center;
+
+    h1{
+        font-weight: bold;
+        color: #A70000;
+    }
+}
+
+.form{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form .form_password, .form_email{
+  width: 100%;
+  max-width: 400px; // giới hạn chiều rộng
+}
+
+.btndk{
+    background: #A70000;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    margin: 1rem auto;
+    width: 200px;
+    display: block;
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.btndk:hover{
+    transform: scale(1.05);
+}
+
+.loginbtn_google{
+    left: 10rem;
+    bottom: 12rem;
+    text-align: center;
+    margin: 0 auto;
+
+}
+
+.continue_with_gg{
+    display: flex;
+
+    transition: transform 0.5s;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
