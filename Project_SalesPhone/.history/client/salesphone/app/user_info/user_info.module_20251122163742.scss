@@ -1,0 +1,87 @@
+.userinf{
+    padding: 2rem 7rem;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+}
+
+.container{
+    flex-direction: column;
+    align-items: center;
+}
+
+.account{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: blue;
+    border-radius: 10px;
+    padding: 4rem 2rem;
+    align-items: center;
+    background: linear-gradient(to bottom, #ead9d9, #820000);
+    border: solid 2px #A70000;
+    
+    button{
+        background-color: #A70000;
+        height: 40px;
+        padding: 0.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.avt_name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+
+    div{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.info{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .title{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+
+}
+
+.changepass{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+
+    table{
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+    }
+}
+
+.btn_mk{
+    border: solid 1px gray;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}

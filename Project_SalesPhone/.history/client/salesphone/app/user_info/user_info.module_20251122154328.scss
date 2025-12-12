@@ -1,0 +1,88 @@
+.userinf{
+    padding: 2rem 7rem;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+}
+
+.container{
+    flex-direction: column;
+    align-items: center;
+}
+
+.account{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: blue;
+    border-radius: 10px;
+    padding: 4rem 2rem;
+    align-items: center;
+    background: linear-gradient(to bottom, #ead9d9, #820000);
+    border: solid 2px #A70000;
+    
+    button{
+        background-color: #A70000;
+        height: 40px;
+        padding: 0.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.avt_name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+
+    div{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.info{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    justify-content: center;
+    background-color: gold;
+
+    .title{
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
+
+.changepass{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+    border-radius: 10px;
+}
+
+.name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding: 0 15rem;
+}
+
+.phonenumber{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 15rem;
+}
+
+.email{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 15rem;
+}

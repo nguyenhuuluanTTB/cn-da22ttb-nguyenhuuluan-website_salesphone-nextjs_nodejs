@@ -1,0 +1,39 @@
+"use client"
+
+import styles from "./user_info.module.scss";
+import Image from "next/image";
+
+export default function UserInfo () {
+
+    return(
+        <section className={styles.userinf}>
+
+            <div className={styles.container}>
+                container
+                <div className={styles.account}>
+                   
+                    <div>
+
+                        <Image src={""} alt=""/>
+                        <div>
+                            <span>Nguyễn Văn An</span>
+                            <span>nguyenvanan@example.com</span>
+                            <span>Tài khoản đã xác thực</span>
+                        </div>
+
+                    </div>
+                    <div></div>
+                
+                </div>   
+                <div className={styles.info}>
+                    info
+                </div>   
+                <div className={styles.changepass}>
+                    changepass
+                </div>   
+            
+            </div> 
+
+        </section>
+    )
+}

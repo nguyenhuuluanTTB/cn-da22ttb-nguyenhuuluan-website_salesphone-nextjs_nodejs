@@ -1,0 +1,136 @@
+.order{
+    font-family: 'Roboto', sans-serif;
+    padding: 0 4rem;
+}
+
+
+.gridContainer{
+    display: grid;
+    grid-template-columns: minimax(450, 2fr) minimax(200px, 1fr);
+    gap: 1rem;
+    min-width: 320px;
+    margin: 0 auto;
+
+    grid-template-areas: "item1 item2";
+}
+
+.item:nth-child(1) {grid-area: item1;}
+.item:nth-child(2) {grid-area: item2;}
+
+.item{
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 200px;
+    border: 1px solid blue;
+}
+
+@media (max-width: 1600px) {
+  .gridContainer {
+    // grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: minmax(450px, 2fr) minmax(200px, 1fr);
+    grid-template-areas:
+      "item1 item2";
+  }
+}
+
+@media (max-width: 1200px) {
+    .gridContainer{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "item1"
+            "item2";
+    }
+}
+
+.item1{
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.diachigiaohang{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+
+.title_location{
+    display: flex;
+    flex-direction: row;   
+    align-items: center;
+    gap: 10px;
+}
+
+.thongtindiachi{
+    background-color: aliceblue;
+    border: solid 1px gainsboro;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.tinh, .quan, .phuong{
+    border: solid 1px gainsboro;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+}
+
+.diachicuthe{
+    border: solid 1px gainsboro;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    width: 100%;
+}
+
+//Phần lựa chọn thanh toán
+.typecash{
+    display: flex;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    border: solid 1px gainsboro;
+    gap: 0.5rem;
+}   
+
+.luachonthanhtoan{
+    margin-top: 1rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+    
+
+//đơn hàng
+.donhang{
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    border: solid 1px gainsboro;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+
+
+
+.baohanh{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 1.5rem;
+
+    .baohanh_icon{
+        color: green;
+        background: rgb(139, 225, 139);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .baohanh_content{
+        flex-direction: column;
+        display: flex;
+    }
+}
+

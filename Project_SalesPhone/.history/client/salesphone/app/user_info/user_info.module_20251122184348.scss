@@ -1,0 +1,141 @@
+.userinf{
+    padding: 2rem 7rem;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+}
+
+.container{
+    flex-direction: column;
+    align-items: center;
+}
+
+.account{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 2rem 2rem;
+    align-items: center;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
+    
+    border: solid 2px #A70000;
+    
+    button{
+        background-color: #A70000;
+        height: 40px;
+        padding: 0.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+   
+}
+
+.avt_name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+
+    div{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.info{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .title{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+
+}
+
+.changepass{
+    margin-top: 2rem;
+    border: solid 2px #A70000;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+
+    table{
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+    }
+}
+
+.btn_mk{
+    border: solid 1px rgb(205, 205, 205);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.btn_mk:hover{
+    scale: 1.01;
+    background-color: rgb(227, 227, 227);
+}
+
+
+.form_container{
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    width: 100%;
+    height: 117%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form{
+        background-color: #fff;
+        padding: 2rem 3rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        
+
+        label{
+            margin-top: 1.5rem;
+        }
+
+        button{
+            background: #A70000;
+            color: #fff;
+            font-weight: bold;
+            padding: 0.5rem 2rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+    }
+}

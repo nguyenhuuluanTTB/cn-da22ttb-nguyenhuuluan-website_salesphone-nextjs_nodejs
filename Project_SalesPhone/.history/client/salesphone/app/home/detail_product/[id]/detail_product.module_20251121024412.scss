@@ -1,0 +1,75 @@
+.gridContainer {
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr) minmax(100px, 1fr);
+
+  gap: 16px;
+  /* padding: 20px 15rem; */
+  /*max-width: 800px;   giới hạn chiều rộng */
+  min-width: 320px;
+  margin: 0 auto;    /* ✅ canh giữa trang */
+}
+
+/* Gán grid-area cho từng item */
+.item:nth-child(1) { grid-area: item1; }
+.item:nth-child(2) { grid-area: item2; }
+.item:nth-child(3) { grid-area: item3; }
+
+/* 🖥️ Mặc định: 3 phần tử nằm ngang */
+.gridContainer {
+  grid-template-areas: "item1 item2 item3";
+}
+
+/* 💻 Màn hình vừa (tablet): chia 2 cột, item3 xuống hàng */
+@media (max-width: 1600px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "item1 item2"
+      "item3 item3";
+  }
+}
+
+/* 📱 Màn hình nhỏ (mobile): chỉ 1 cột, đổi thứ tự -> 2, 1, 3 */
+@media (max-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "item1"
+      "item2"
+      "item3";
+  }
+}
+
+.item {
+  border: solid 1px blue;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 200px;
+}
+
+
+.column_left{
+  h2{
+    font-size: 20pt;
+  }
+}
+
+
+
+.detail_product{
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+}
+
+.container{
+    padding: 0 4rem;
+
+}
+
+.videoads{
+    display: flex;
+    justify-content: center;
+}
+

@@ -1,0 +1,37 @@
+.userinf{
+    padding: 2rem 5rem;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+}
+
+.container{
+    background-color: red;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.account{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: blue;
+    border-radius: 10px;
+    padding: 4rem 2rem;
+
+    button{
+        background-color: red;
+        padding: 0.5rem;
+    }
+}
+
+.avt_name{
+    display: flex;
+    flex-direction: row;
+
+
+    div{
+        display: flex;
+        flex-direction: column;
+    }
+}

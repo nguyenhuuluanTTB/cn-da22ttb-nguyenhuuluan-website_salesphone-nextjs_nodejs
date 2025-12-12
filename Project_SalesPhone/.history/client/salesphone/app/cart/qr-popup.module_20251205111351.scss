@@ -1,0 +1,213 @@
+// QR Code Popup Styles
+.qrPopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.qrPopupContent {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        grid-column: 1 / -1;
+    }
+
+    h3 {
+        color: #667eea;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        color: #555;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.popupGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    color: #666;
+
+    &:hover {
+        background: #e0e0e0;
+        transform: rotate(90deg);
+    }
+}
+
+.orderInfo {
+    text-align: center;
+    margin: 0.5rem 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.autoCheck {
+    text-align: center;
+    color: #667eea;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.qrCodeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    height: 100%;
+}
+
+.qrCodeImage {
+    max-width: 100%;
+    width: 350px;
+    height: auto;
+    border: 3px solid #667eea;
+    border-radius: 10px;
+}
+
+.rightContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bankInfo {
+    background: #e3f2fd;
+    padding: 1.5rem;
+    border-radius: 10px;
+
+    p {
+        margin: 0.5rem 0;
+        color: #333;
+        font-size: 0.95rem;
+
+        strong {
+            color: #667eea;
+        }
+    }
+}
+
+.instructions {
+    background: #fff9e6;
+    padding: 1.5rem;
+    border-radius: 10px;
+
+    ol {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+
+        li {
+            margin: 0.5rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+.confirmBtn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+}
+
+@media (max-width: 768px) {
+    .qrPopupContent {
+        padding: 1.5rem;
+
+        h2 {
+            font-size: 1.2rem;
+        }
+    }
+
+    .qrCodeImage {
+        max-width: 250px;
+    }
+
+    .popupGrid {
+        gap: 1rem;
+    }
+}
