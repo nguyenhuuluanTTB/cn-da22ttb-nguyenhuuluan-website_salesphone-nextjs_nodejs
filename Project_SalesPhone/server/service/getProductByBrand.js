@@ -1,9 +1,9 @@
-const {sequelize} =  require('../config/database.js');
+const { sequelize } = require('../config/database.js');
 
-module.exports = async function getProduct_By_Brand (brand) {
-    try{
+module.exports = async function getProduct_By_Brand(brand) {
+    try {
         console.log('getProduct_By_Brand service - searching for brand:', brand);
-        
+
         // Try case-insensitive search
         const [rows] = await sequelize.query(
             `
@@ -32,7 +32,7 @@ module.exports = async function getProduct_By_Brand (brand) {
             LEFT JOIN promotion AS j
                 ON p.id_promotion = j.id_promotion
             WHERE UPPER(p.brand) = UPPER(?)
-            AND p.status = 'active'
+            -- AND p.status = 'active'
             LIMIT 15;
             `,
             {
@@ -43,7 +43,7 @@ module.exports = async function getProduct_By_Brand (brand) {
         console.log('getProduct_By_Brand service - found', rows.length, 'products');
         return rows;
     }
-    catch(err){
+    catch (err) {
         console.error("DB query error: ", err);
         throw err;
     }

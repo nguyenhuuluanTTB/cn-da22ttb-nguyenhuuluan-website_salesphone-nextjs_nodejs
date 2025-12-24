@@ -40,12 +40,8 @@ export default function ProductByBrand({ params }: PageProps) {
   // CALL API
   // ======================
   const getProductByBrand = async (brand: string) => {
+    // Token is optional for viewing products
     const token = localStorage.getItem("token");
-    if (!token) {
-      // Show auth popup if not logged in
-      window.dispatchEvent(new Event('showAuthPopup'));
-      return;
-    }
 
     try {
       console.log('Fetching products for brand:', brand);
