@@ -1,0 +1,274 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999 !important;
+  animation: fadeIn 0.3s ease;
+  pointer-events: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popup {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 100000 !important;
+  pointer-events: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.8rem;
+    color: #333;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+
+  button {
+    flex: 1;
+    padding: 0.8rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #666;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #A70000;
+    }
+
+    &.active {
+      color: #A70000;
+      border-bottom-color: #A70000;
+      font-weight: bold;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #A70000;
+    }
+  }
+
+  small {
+    font-size: 0.8rem;
+    margin-top: -0.3rem;
+  }
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      width: auto;
+      cursor: pointer;
+    }
+  }
+
+  small {
+    font-size: 0.8rem;
+  }
+}
+
+.submitBtn {
+  padding: 0.9rem;
+  background-color: #A70000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background-color: #8a0000;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.authButton {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.2s;
+  border: 2px solid #A70000;
+  background-color: #A70000;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #8a0000;
+    border-color: #8a0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(167, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  span {
+    display: block;
+  }
+}
+
+.signupButton {
+  background-color: white;
+  color: #A70000;
+  border-color: #A70000;
+
+  &:hover {
+    background-color: #f8f8f8;
+    color: #8a0000;
+    border-color: #8a0000;
+  }
+}
+
+.guestOption {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.guestButton {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.5rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #A70000;
+  }
+}
+

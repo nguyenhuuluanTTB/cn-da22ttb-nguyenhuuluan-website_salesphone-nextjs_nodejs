@@ -41,10 +41,40 @@ export default function ProductByBrand({ params }: PageProps) {
   // ======================
   const getProductByBrand = async (brand: string) => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token) {
+      // Show auth popup if not logged in
+      window.dispatchEvent(new Event('showAuthPopup'));
+      return;
+    }
 
     try {
+      console.log('Fetching products for brand:', brand);
       const res = await callAPI(token, brand);
+      console.log('API Response:', res);
+
+      if (!res) {
+        console.error("No response from API");
+        setPhones([]);
+        return;
+      }
+
+      if (!res.success) {
+        console.error("API returned error:", res.message);
+        setPhones([]);
+        return;
+      }
+
+      if (!res.data || !Array.isArray(res.data)) {
+        console.error("Invalid API response data:", res);
+        setPhones([]);
+        return;
+      }
+
+      if (res.data.length === 0) {
+        console.log("No products found for brand:", brand);
+        setPhones([]);
+        return;
+      }
 
       const normalized: Phone[] = res.data.map((p: any) => ({
         phone_id: p.id_product,
@@ -57,13 +87,15 @@ export default function ProductByBrand({ params }: PageProps) {
         screen_size: p.screen_size,
         ram: p.ram,
         rom: p.rom,
-        percent: Number(p.percent),
+        percent: Number(p.percent || 0),
         product_code: p.product_code,
       }));
 
+      console.log('Normalized products:', normalized);
       setPhones(normalized);
     } catch (err) {
       console.error("API ERROR:", err);
+      setPhones([]);
     }
   };
 
@@ -102,11 +134,16 @@ export default function ProductByBrand({ params }: PageProps) {
     <section className={styles.product_by_brand}>
       <div className={styles.container}>
         <div className={styles.title}>
-          <h1>{brand}</h1>
+          <h1>📱 {brand}</h1>
           <p>
             Khám phá dòng sản phẩm {brand} với công nghệ tiên tiến, thiết kế sang
-            trọng và hiệu năng vượt trội.
+            trọng và hiệu năng vượt trội. Tìm kiếm điện thoại phù hợp với nhu cầu của bạn.
           </p>
+          {sortedPhones.length > 0 && (
+            <div style={{ marginTop: '1rem', fontSize: '0.95rem', opacity: 0.9 }}>
+              Tìm thấy <strong>{sortedPhones.length}</strong> sản phẩm
+            </div>
+          )}
         </div>
 
         <div className={styles.content}>

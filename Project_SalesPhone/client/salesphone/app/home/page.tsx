@@ -331,15 +331,15 @@ export default function Home () {
 
                 <div className={styles.containerMayMan}>
                     {/* Left icon */}
-                    <div className={styles.iconWrapMayMan}><div className={styles.iconCircleMayMan}><FiGift size={36} color="#fff" /></div></div>
+                    <div className={styles.iconWrapMayMan}><div className={styles.iconCircleMayMan}><FaExchangeAlt size={36} color="#fff" /></div></div>
 
                     {/* Content */}
                     <div className={styles.contentMayMan}>
-                        <h3 className={styles.titleMayMan}>Vòng Quay May Mắn 🎁</h3>
-                        <p className={styles.descMayMan}>Nhận voucher lên đến <span className={styles.highlightMayMan}>5.000.000đ</span></p>
-                        <div className={styles.benefitsMayMan}><span>✅ 100% trúng thưởng</span><span>🎯 Miễn phí</span></div>
+                        <h3 className={styles.titleMayMan}>Đổi Cũ Lấy Mới 📱</h3>
+                        <p className={styles.descMayMan}>Giảm giá lên đến <span className={styles.highlightMayMan}>5.000.000đ</span> khi đổi điện thoại cũ</p>
+                        <div className={styles.benefitsMayMan}><span>✅ Đánh giá nhanh</span><span>🎯 Miễn phí vận chuyển</span></div>
                         {/* Button */}
-                        <button className={styles.spinBtnMayMan}>Quay ngay <FiArrowRight size={16} /></button>
+                        <Link href="/store" className={styles.spinBtnMayMan}>Xem ngay <FiArrowRight size={16} /></Link>
                     </div>
 
                     {/* Footer Info */}
@@ -347,7 +347,7 @@ export default function Home () {
                         <div className={styles.footerItemMayMan}>
                             <div style={ {display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center'}}>
                                 <div style={{backgroundColor: '#c4dfffff', padding: '5px', borderRadius: '7px', fontSize: '18pt', color: '#6d6affff'}}>< GoPeople /></div>
-                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Người chơi hôm nay</span>
+                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Khách hàng đã đổi</span>
                             </div> 
                             <span style={{fontSize: '30pt'}}>12,458</span>
                         </div>
@@ -356,7 +356,7 @@ export default function Home () {
                         <div className={styles.footerItemMayMan}>
                             <div style={ {display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center'}}>
                                 <div style={{backgroundColor: '#fff2c4ff', padding: '5px', borderRadius: '7px', fontSize: '18pt', color: '#ff5b5bff'}}>< GoTrophy /></div>
-                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Giải thưởng đã trao</span>
+                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Đơn đổi thành công</span>
                             </div>
                             <span style={{fontSize: '30pt'}}>8,921</span>
                         </div>
@@ -365,9 +365,9 @@ export default function Home () {
                         <div className={styles.footerItemMayMan}>
                             <div style={ {display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center'}}>
                                 <div style={{backgroundColor: '#c2ffc9ff', padding: '5px', borderRadius: '7px', fontSize: '18pt', color: '#fc7d2eff'}}>< TiTicket  /></div>
-                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Lượt quay còn lại</span>
+                                <span style={{fontSize: '12pt', color: '#787878ff'}}>Ưu đãi còn lại</span>
                             </div>
-                            <span className={styles.remainingMayMan} style={{fontSize: '30pt'}}>1</span>
+                            <span className={styles.remainingMayMan} style={{fontSize: '30pt'}}>Hôm nay</span>
                         </div>
                     </div>
                 </div>

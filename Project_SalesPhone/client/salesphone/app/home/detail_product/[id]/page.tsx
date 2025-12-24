@@ -109,7 +109,7 @@ export default function detail_product () {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                console.error('No auth token found');
+                window.dispatchEvent(new Event('showAuthPopup'));
                 return;
             }
 
@@ -127,6 +127,7 @@ export default function detail_product () {
             }
         } catch (err) {
             console.error(err);
+            alert('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng');
         }
     }
     //Phần dữ liệu ảo cho comment

@@ -265,7 +265,7 @@
 
 
 
-//Vòng quay may mắn
+//Chương trình đổi cũ lấy mới
 .containerMayMan {
   background: linear-gradient(90deg, #e14852, #8f050e);
   color: #fff;
@@ -320,7 +320,7 @@
   margin-bottom: 14px;
 }
 
-/* Nút “Quay ngay” */
+/* Nút "Xem ngay" */
 .spinBtnMayMan {
   position: absolute;
   right: 25px;
@@ -336,6 +336,7 @@
   align-items: center;
   gap: 6px;
   transition: 0.25s ease;
+  text-decoration: none;
 }
 .spinBtnMayMan:hover {
   background: #ffd6d6;

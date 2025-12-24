@@ -1,0 +1,292 @@
+.header {
+  background-color: #a20000;
+  color: white;
+  padding: 8px 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1200px; /* Giới hạn chiều rộng */
+  margin: 0 auto; /* Căn giữa */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px; /* thêm khoảng trống 2 bên */
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: row;
+  text-decoration: none;
+  color: #fff;
+  margin-right: 0.5rem;
+
+  .logoText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.logo_category{
+    display: flex;
+    align-items: center;
+}
+
+
+.categoryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-left: 30px;
+  width: 125px;
+  &:hover {
+    background-color: #b71c1c;
+  }
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 9999px; /* Bo tròn */
+  padding: 4px 8px;
+  width: 350px;
+  transition: all 0.2s ease;
+  color: gray;
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 6px 10px;
+    background: transparent;
+  }
+
+  button {
+    border: none;
+    background: #b71c1c; /* màu đỏ chủ đạo */
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background: #d32f2f; /* đỏ sáng hơn khi hover */
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 2px #ffcdd2; /* hiệu ứng khi nhập */
+  }
+}
+
+/* Suggestion dropdown - centered and wide, not constrained by search box width */
+.searchDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 40vw);
+  max-height: 55vh;
+  overflow-y: auto;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  padding: 6px;
+  z-index: 2000;
+}
+
+.suggestionItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.suggestionItem:hover { background: #fafafa; }
+
+.suggestionText { flex: 1; overflow: hidden; }
+.suggestionTitle { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.suggestionMeta { font-size: 0.85rem; color: #666; margin-top: 3px; }
+
+.dropdownFooter { text-align: center; margin-top: 6px; padding-top: 8px; border-top: 1px solid #eee; }
+.dropdownFooter a { color: #b71c1c; text-decoration: none; font-weight: 600; }
+
+.noResults { padding: 10px; color: #666; }
+
+@media (max-width: 640px) {
+  .searchDropdown {
+    left: 10px;
+    right: 10px;
+    transform: none;
+    width: auto;
+    max-height: 50vh;
+  }
+}
+
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #d66b6b;
+  border-radius: 8px;
+  padding: 6px 16px;
+  width: 140px;
+  font-size: 0.7rem;
+
+  strong {
+    display: block;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  .navItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    font-size: 0.7rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    gap: 1rem;
+
+    svg {
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+  }
+}
+
+.giohang svg{
+  display: none;
+}
+
+.logo_category{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* --------------------------- */
+/* RESPONSIVE - MOBILE VERSION */
+/* --------------------------- */
+
+@media (max-width: 1095px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .categoryBtn span {
+    display: none; /* Ẩn chữ Danh mục */
+  }
+
+  .contact,
+  .nav {
+    display: none; /* Ẩn các phần không cần ở mobile */
+  }
+
+  .searchBox {
+    width: 100%;
+    order: 3; /* Đưa xuống hàng dưới cùng */
+    max-width: none;
+  }
+
+  .logo {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .categoryBtn,
+  .logo,
+  .navItem:last-child {
+    flex-shrink: 0;
+  }
+
+  /* Giỏ hàng giữ bên phải */
+  .nav {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  .navItem span {
+    display: none; /* Ẩn chữ, chỉ giữ icon */
+  }
+
+  .navItem svg {
+    font-size: 1.4rem;
+  }
+
+  .logo_category{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+  }
+
+  .navItem svg{
+    display: none;
+  }
+
+  .categoryBtn{
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .cuahangganban svg, .tracuudonhang svg, .taikhoan svg, .chinhsach svg{
+    display: none;
+  }
+  
+  .giohang svg{
+    display: block;
+    font-size: 2rem;
+  }
+
+  .categoryBtn {
+    margin-left: 0;
+  }
+}
+
+

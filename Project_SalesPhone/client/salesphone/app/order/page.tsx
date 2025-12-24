@@ -35,6 +35,14 @@ export default function Order () {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        // Check authentication first
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.dispatchEvent(new Event('showAuthPopup'));
+            window.location.href = '/home';
+            return;
+        }
+        
         fetchOrders();
     }, []);
 

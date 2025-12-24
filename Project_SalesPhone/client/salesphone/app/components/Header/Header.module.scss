@@ -108,6 +108,60 @@
   }
 }
 
+/* Suggestion dropdown - centered and wide, not constrained by search box width */
+.searchDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 35vw);
+  max-height: 55vh;
+  overflow-y: auto;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  padding: 6px;
+  z-index: 2000;
+}
+
+.searchNotice {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 6px;
+}
+
+.suggestionItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.suggestionItem:hover { background: #fafafa; }
+
+.suggestionText { flex: 1; overflow: hidden; }
+.suggestionTitle { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.suggestionMeta { font-size: 0.85rem; color: #666; margin-top: 3px; }
+
+.dropdownFooter { text-align: center; margin-top: 6px; padding-top: 8px; border-top: 1px solid #eee; }
+.dropdownFooter a { color: #b71c1c; text-decoration: none; font-weight: 600; }
+
+.noResults { padding: 10px; color: #666; }
+
+@media (max-width: 640px) {
+  .searchDropdown {
+    left: 10px;
+    right: 10px;
+    transform: none;
+    width: auto;
+    max-height: 50vh;
+  }
+}
+
 
 .contact {
   display: flex;
@@ -243,4 +297,68 @@
   }
 }
 
+.dn_dk_menucha:hover{
+  transition: all 0.3s;
+   .dn_dk{
+    display: block;
+    z-index: 99999;
+   }
+}
+
+.dn_dk_menucha:focus-within .dn_dk {
+  display: block;
+  z-index: 99999;
+}
+
+.dn_dk_menucha{
+  position: relative;
+  
+}
+
+.dn_dk{
+  a{
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+
+
+//Thêm menu con
+.dn_dk{
+  position: absolute;
+  /* place the dropdown below the parent and center horizontally */
+  top: calc(100% + 0px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: #A70000;
+  padding: 0.4rem 0;
+  border-radius: 8px;
+  display: none;
+  min-width: 160px;
+  border: solid 2px #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  .dn_dk_item {
+    padding: 10px 16px;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    &:hover {
+      background-color: #d32f2f;
+    }
+  }
+
+  div:hover{
+    background-color: #d32f2f;
+    transition: all 0.2s ease;
+  }
+}
 

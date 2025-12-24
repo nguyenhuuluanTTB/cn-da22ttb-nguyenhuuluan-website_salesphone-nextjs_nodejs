@@ -42,7 +42,7 @@ export default function Login () {
                 if (data.token) {
                     localStorage.setItem('token', data.token);
                     setPopup({ visible: true, message: 'Đăng nhập bằng Google thành công', type: 'success' });
-                    window.location.href = '/';
+                    window.location.href = '/home';
                 } else {
                     setPopup({ visible: true, message: data.message || 'Đăng nhập Google thất bại', type: 'error' });
                 }

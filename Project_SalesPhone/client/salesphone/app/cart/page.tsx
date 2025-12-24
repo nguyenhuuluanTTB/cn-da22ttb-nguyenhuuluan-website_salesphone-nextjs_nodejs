@@ -242,11 +242,16 @@ export default function Cart() {
     }, [showQRPopup, orderData.orderId]);
 
     useEffect(() => {
+        // Check authentication first
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.dispatchEvent(new Event('showAuthPopup'));
+            window.location.href = '/home';
+            return;
+        }
+
         const fetchProductInCart = async () => {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) return;
-
                 const result = await getProduct(token);
                 if (!result) throw new Error("HTTP error!");
 
@@ -372,7 +377,7 @@ export default function Cart() {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Vui lòng đăng nhập để tiếp tục');
+                window.dispatchEvent(new Event('showAuthPopup'));
                 return;
             }
 

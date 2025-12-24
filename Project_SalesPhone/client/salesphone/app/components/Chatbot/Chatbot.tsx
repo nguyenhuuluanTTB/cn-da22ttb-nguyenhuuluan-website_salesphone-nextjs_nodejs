@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Chatbot.module.scss';
 import { IoChatbubbleEllipsesSharp, IoClose, IoSend } from "react-icons/io5";
 
@@ -11,9 +11,55 @@ export default function Chatbot() {
     ]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        // Check authentication status
+        const checkAuth = () => {
+            const token = localStorage.getItem('token');
+            setIsAuthenticated(!!token);
+        };
+
+        checkAuth();
+
+        // Listen for storage changes
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === 'token') {
+                checkAuth();
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        
+        // Check periodically
+        const interval = setInterval(checkAuth, 1000);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(interval);
+        };
+    }, []);
+
+    const handleOpenChat = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            // Show auth popup
+            window.dispatchEvent(new Event('showAuthPopup'));
+            return;
+        }
+        setIsOpen(true);
+    };
 
     const sendMessage = async () => {
         if (!input.trim()) return;
+
+        // Check authentication before sending
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.dispatchEvent(new Event('showAuthPopup'));
+            setIsOpen(false);
+            return;
+        }
 
         const userMessage = input.trim();
         setInput('');
@@ -24,7 +70,8 @@ export default function Chatbot() {
             const response = await fetch('http://localhost:5000/api/chatbot/chat', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ prompt: userMessage })
             });
@@ -58,7 +105,7 @@ export default function Chatbot() {
             {/* Chat Button */}
             <button 
                 className={`${styles.chatButton} ${isOpen ? styles.hidden : ''}`}
-                onClick={() => setIsOpen(true)}
+                onClick={handleOpenChat}
             >
                 <IoChatbubbleEllipsesSharp size={28} />
             </button>
@@ -113,11 +160,11 @@ export default function Chatbot() {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyPress={handleKeyPress}
-                            disabled={loading}
+                            disabled={loading || !isAuthenticated}
                         />
                         <button 
                             onClick={sendMessage}
-                            disabled={loading || !input.trim()}
+                            disabled={loading || !input.trim() || !isAuthenticated}
                         >
                             <IoSend size={20} />
                         </button>
