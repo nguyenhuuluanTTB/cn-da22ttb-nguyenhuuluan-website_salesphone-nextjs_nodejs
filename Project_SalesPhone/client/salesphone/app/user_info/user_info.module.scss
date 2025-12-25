@@ -1,26 +1,26 @@
-.userinf{
+.userinf {
     padding: 2rem 7rem;
     font-family: 'Roboto', sans-serif;
     justify-content: center;
 }
 
-.container{
+.container {
     flex-direction: column;
     align-items: center;
 }
 
-.account{
+.account {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border-radius: 10px;
     padding: 2rem 2rem;
     align-items: center;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
-    
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+
     border: solid 2px #A70000;
-    
-    button{
+
+    button {
         background-color: #A70000;
         height: 40px;
         padding: 0.5rem;
@@ -33,32 +33,32 @@
         gap: 0.5rem;
     }
 
-   
+
 }
 
-.avt_name{
+.avt_name {
     display: flex;
     flex-direction: row;
     align-items: center;
-    
 
-    div{
+
+    div {
         display: flex;
         flex-direction: column;
     }
 }
 
-.info{
+.info {
     margin-top: 2rem;
     border: solid 2px #A70000;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 1rem 2rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
 
-    .title{
+    .title {
         display: flex;
         flex-direction: column;
         margin-bottom: 3rem;
@@ -66,19 +66,19 @@
 
 }
 
-.changepass{
+.changepass {
     margin-top: 2rem;
     border: solid 2px #A70000;
     border-radius: 10px;
     padding: 1rem 2rem;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.5);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
 }
 
-.table{
+.table {
     display: flex;
     justify-content: center;
 
-    table{
+    table {
         border: 2px solid #ccc;
         border-radius: 12px;
         border-collapse: separate;
@@ -87,7 +87,7 @@
     }
 }
 
-.btn_mk{
+.btn_mk {
     border: solid 1px rgb(205, 205, 205);
     border-radius: 8px;
     padding: 0.5rem 1rem;
@@ -99,13 +99,13 @@
     cursor: pointer;
 }
 
-.btn_mk:hover{
+.btn_mk:hover {
     scale: 1.01;
     background-color: rgb(227, 227, 227);
 }
 
 
-.form_container{
+.form_container {
     position: absolute;
     background-color: rgba($color: #000000, $alpha: 0.5);
     width: 100%;
@@ -116,7 +116,7 @@
     justify-content: center;
     align-items: center;
 
-    form{
+    form {
         background-color: #fff;
         padding: 2rem 3rem;
         display: flex;
@@ -125,11 +125,11 @@
         border-radius: 10px;
         margin-bottom: 10rem;
 
-        label{
+        label {
             margin-top: 1.5rem;
         }
 
-        button{
+        button {
             background: #A70000;
             color: #fff;
             font-weight: bold;
@@ -138,65 +138,228 @@
             border-radius: 8px;
         }
 
-        button:hover{
+        button:hover {
             background-color: #c12929;
         }
     }
 }
 
-.form_display{
+.form_display {
     display: flex;
 }
 
-.closeIcon{
-    display: flex; 
-    justify-content: end; 
-    margin-bottom: 2rem; 
+.closeIcon {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 2rem;
     font-size: 16pt;
     cursor: pointer;
 }
 
-.closeIcon:hover{
+.closeIcon:hover {
     color: #A70000;
 }
 
 
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .popup {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-    .btn{
+    .btn {
         display: flex;
         justify-content: space-evenly;
-        
-        .btnhuy{
+
+        .btnhuy {
             background-color: gainsboro;
             padding: 0.2rem 0.5rem;
             border-radius: 5px;
         }
 
-        .btnxacnhan{
+        .btnxacnhan {
             background-color: rgb(46, 213, 46);
             padding: 0.2rem 0.5rem;
             border-radius: 5px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .userinf {
+        padding: 1rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .account {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+
+
+    .avt_name {
+
+        .icon_account {
+            font-size: 50pt !important;
+        }
+    }
+
+    .table {
+        display: block;
+        width: 100%;
+
+        table,
+        tbody {
+            display: block;
+            width: 100%;
+        }
+
+        tr {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100% !important;
+        }
+
+        td {
+            display: block;
+            width: 100% !important;
+            border: none;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .userinf {
+        padding: 1rem;
+    }
+
+    .icon_account {
+        display: none;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .account {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+
+
+    .avt_name {
+
+        .icon_account {
+            font-size: 50pt !important;
+        }
+    }
+
+    .table {
+        display: block;
+        width: 100%;
+
+        table,
+        tbody {
+            display: block;
+            width: 100%;
+        }
+
+        tr {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100% !important;
+        }
+
+        td {
+            display: block;
+            width: 100% !important;
+            border: none;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+    }
+}
+
+@media(max-width: 375px) {
+    .userinf {
+        padding: 1rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .account {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+
+
+    .avt_name {
+
+        .icon_account {
+            font-size: 50pt !important;
+        }
+    }
+
+    .table {
+        display: block;
+        width: 100%;
+
+        table,
+        tbody {
+            display: block;
+            width: 100%;
+        }
+
+        tr {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100% !important;
+        }
+
+        td {
+            display: block;
+            width: 100% !important;
+            border: none;
+            padding: 4px 0;
+            font-size: 14px;
         }
     }
 }

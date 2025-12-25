@@ -3,7 +3,7 @@ import styles from "./Footer.module.scss";
 
 
 import {
-  FaFacebook ,
+  FaFacebook,
   FaInstagram,
   FaYoutube,
   FaTwitter,
@@ -90,31 +90,31 @@ export default function Footer() {
 
       {/* --- Mạng xã hội --- */}
       <div className={styles.social_payment}>
-          <div className={styles.social}>
-            <p>Kết nối với chúng tôi</p>
-            <div style={{display: 'flex', flexDirection: 'row', gap: '1rem', fontSize: '18pt'}}>
-              <FaFacebook  />
-              <FaInstagram />
-              <FaYoutube />
-              <FaTwitter />
-            </div>
-             
+        <div className={styles.social}>
+          <p>Kết nối với chúng tôi</p>
+          <div className={styles.socialIcons}>
+            <FaFacebook />
+            <FaInstagram />
+            <FaYoutube />
+            <FaTwitter />
           </div>
 
-          {/* --- Phương thức thanh toán --- */}
-          <div className={styles.payment}>
-            <p>Phương thức thanh toán</p>
-            <div className={styles.methods}>
-              <span>VISA</span>
-              <span>MasterCard</span>
-              <span>MOMO</span>
-              <span>ZaloPay</span>
-              <span>VNPAY</span>
-              <span>COD</span>
-            </div>
+        </div>
+
+        {/* --- Phương thức thanh toán --- */}
+        <div className={styles.payment}>
+          <p>Phương thức thanh toán</p>
+          <div className={styles.methods}>
+            <span>VISA</span>
+            <span>MasterCard</span>
+            <span>MOMO</span>
+            <span>ZaloPay</span>
+            <span>VNPAY</span>
+            <span>COD</span>
           </div>
+        </div>
       </div>
-      
+
 
       {/* --- Footer bottom --- */}
       <div className={styles.bottom}>

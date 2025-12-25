@@ -1,69 +1,76 @@
 //Phần section cart
-.cart{
+.cart {
     font-family: 'Roboto', sans-serif;
     padding: 0 4rem;
 }
 
-.container{
-
-}
+.container {}
 
 
 .gridContainer {
-  display: grid;
-  /* grid-template-columns: repeat(3, 1fr); */
-  grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr) minmax(100px, 1fr);
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr) minmax(100px, 1fr);
 
-  gap: 16px;
-  /* padding: 20px 15rem; */
-  /*max-width: 800px;   giới hạn chiều rộng */
-  min-width: 320px;
-  margin: 0 auto;    /* ✅ canh giữa trang */
+    gap: 16px;
+    /* padding: 20px 15rem; */
+    /*max-width: 800px;   giới hạn chiều rộng */
+    min-width: 320px;
+    margin: 0 auto;
+    /* ✅ canh giữa trang */
 }
 
 /* Gán grid-area cho từng item */
-.item:nth-child(1) { grid-area: item1; }
-.item:nth-child(2) { grid-area: item2; }
-.item:nth-child(3) { grid-area: item3; }
+.item:nth-child(1) {
+    grid-area: item1;
+}
+
+.item:nth-child(2) {
+    grid-area: item2;
+}
+
+.item:nth-child(3) {
+    grid-area: item3;
+}
 
 /* 🖥️ Mặc định: 3 phần tử nằm ngang */
 .gridContainer {
-  grid-template-areas: "item1 item2 item3";
+    grid-template-areas: "item1 item2 item3";
 }
 
 
 .item {
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  min-width: 200px;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 200px;
 }
 
 /* 💻 Màn hình vừa (tablet): chia 2 cột, item3 xuống hàng */
 @media (max-width: 1600px) {
-  .gridContainer {
-    // grid-template-columns: repeat(2, 1fr);
-    grid-template-columns: minmax(450px, 2fr) minmax(200px, 1fr);
-    grid-template-areas:
-      "item1 item2"
-      "item3 item3";
-  }
+    .gridContainer {
+        // grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: minmax(450px, 2fr) minmax(200px, 1fr);
+        grid-template-areas:
+            "item1 item2"
+            "item3 item3";
+    }
 }
 
 /* 📱 Màn hình nhỏ (mobile): chỉ 1 cột, đổi thứ tự -> 2, 1, 3 */
 @media (max-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "item1"
-      "item2"
-      "item3";
-  }
+    .gridContainer {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "item1"
+            "item2"
+            "item3";
+    }
 }
 
 
 //title
-.title{
+.title {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
@@ -74,7 +81,7 @@
     border: solid 1px gainsboro;
 }
 
-.icon_cart{
+.icon_cart {
     font-weight: bold;
     background-color: #A70000;
     padding: 0.2rem;
@@ -83,7 +90,7 @@
 }
 
 
-.selection_toolbar{
+.selection_toolbar {
     border: solid 1px gainsboro;
     padding: 0.7rem 1rem;
     display: flex;
@@ -91,24 +98,24 @@
     border-radius: 15px;
     background-color: aliceblue;
 
-    span{
+    span {
         font-size: 12pt;
     }
 }
 
-.select_all{
+.select_all {
 
     display: flex;
     gap: 1rem;
     color: rgb(94, 94, 94);
 
-    input{
+    input {
         width: 25px;
     }
-    
+
 }
 
-.delete_all{
+.delete_all {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -116,19 +123,20 @@
     color: rgb(94, 94, 94);
 }
 
-.delete_all:hover{
-   color: #A70000;
+.delete_all:hover {
+    color: #A70000;
 }
 
 //sản phẩm
-.container_product{
+.container_product {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
     gap: 1.5rem;
-    
+
 }
-.product{
+
+.product {
     display: flex;
     padding: 1rem 2rem;
     border-radius: 15px;
@@ -138,30 +146,30 @@
     transition: all 0.3s;
 }
 
-.product:hover{
-    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+.product:hover {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
-.left{
+.left {
     display: flex;
     gap: 2rem;
 
-    input{
+    input {
         width: 25px;
     }
 
-    img{
+    img {
         width: 170px;
         border-radius: 15px;
     }
 
-    .inf{
+    .inf {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
 
-    .quantity{
+    .quantity {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -172,49 +180,49 @@
         border-radius: 10px;
     }
 
-    .icon_quantity{
+    .icon_quantity {
         font-size: 20pt;
         color: gray;
         background: rgb(255, 255, 255);
         padding: 0.2rem;
         border-radius: 10px;
-        box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         transition: all 0.3s;
     }
 
-    .icon_quantity:hover{
+    .icon_quantity:hover {
         scale: 1.05;
         color: #A70000;
         font-weight: bold;
     }
 }
 
-.right{
+.right {
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: end;
 
-    .icon_trash{
+    .icon_trash {
         font-size: 15pt;
         color: gray;
         background: rgb(255, 255, 255);
         padding: 0.5rem;
         border-radius: 10px;
-        box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         transition: all 0.3s;
     }
 
-    .icon_trash:hover{
+    .icon_trash:hover {
         scale: 1.05;
         color: #A70000;
         font-weight: bold;
     }
 
 
-    .price{
+    .price {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -225,14 +233,14 @@
 
 
 //item2
-.tongcong{
+.tongcong {
     padding: 1.5rem;
     background-color: aliceblue;
     border-radius: 15px;
     border: solid 1px gainsboro;
     align-items: center;
 
-    button{
+    button {
         background-color: #A70000;
         color: #fff;
         padding: 1rem 2rem;
@@ -244,38 +252,39 @@
         transition: all 0.3s;
     }
 
-    
 
-    button:hover{
+
+    button:hover {
         background-color: #c22626;
         scale: 1.05;
     }
 
-    ul{
+    ul {
         list-style-type: disc;
         color: green;
-        span{
+
+        span {
             color: rgb(94, 94, 94);
             font-size: 12pt;
         }
     }
 }
 
-.giasp{
+.giasp {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     font-size: 13pt;
 }
 
-.giavanchuyen{
+.giavanchuyen {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     font-size: 13pt;
 }
 
-.tong_gia{
+.tong_gia {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -285,7 +294,7 @@
 
 
 
-.thongtindiachi{
+.thongtindiachi {
     background-color: rgb(255, 255, 255);
     border: solid 1px gainsboro;
     padding: 1.5rem;
@@ -295,20 +304,22 @@
 
 }
 
-.diachigiaohang{
+.diachigiaohang {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin: 2rem 0;
 }
 
-.tinh, .quan, .phuong{
+.tinh,
+.quan,
+.phuong {
     border: solid 1px gainsboro;
     padding: 0.5rem 1rem;
     border-radius: 15px;
 }
 
-.diachicuthe{
+.diachicuthe {
     border: solid 1px gainsboro;
     padding: 0.5rem 1rem;
     border-radius: 15px;
@@ -316,24 +327,53 @@
 }
 
 
-.luachonthanhtoan{
+.luachonthanhtoan {
     margin-top: 1rem;
     gap: 1rem;
     display: flex;
     flex-direction: column;
 }
 
-.typecash{
+.typecash {
     display: flex;
     border-radius: 15px;
     padding: 0.5rem 1rem;
     border: solid 1px gainsboro;
     gap: 0.5rem;
-} 
+}
 
-.title_location{
+.title_location {
     display: flex;
-    flex-direction: row;   
+    flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .left {
+        flex-direction: column;
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    .thongtindiachi {
+        flex-direction: column !important;
+    }
+
+    .diachigiaohang {
+        flex-direction: column !important;
+    }
+
+    .tinh,
+    .quan,
+    .phuong {
+        font-size: 11pt;
+    }
+
+    .diachicuthe {
+        font-size: 11pt;
+    }
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerValidator, loginValidator, otpValidator } = require('../validation/authValidation'); // thêm otpValidator
+const { registerValidator, loginValidator, otpValidator, forgotPasswordValidator, resetPasswordValidator } = require('../validation/authValidation');
 const validateRequest = require('../middleware/validateRequest');
 const authController = require('../controller/authController');
 
@@ -22,5 +22,14 @@ router.post('/login-google', authController.loginGoogle);
 // OAuth redirect flow
 // router.get('/login-google', authController.loginGoogleRedirect);
 // router.get('/login-google/callback', authController.loginGoogleCallbackRedirect);
+
+// Quên mật khẩu - Gửi OTP
+router.post('/forgot-password', forgotPasswordValidator, validateRequest, authController.forgotPassword);
+
+// Quên mật khẩu - Xác thực OTP
+router.post('/verify-forgot-otp', otpValidator, validateRequest, authController.verifyForgotOtp);
+
+// Quên mật khẩu - Đặt lại mật khẩu
+router.post('/reset-password', resetPasswordValidator, validateRequest, authController.resetPassword);
 
 module.exports = router;

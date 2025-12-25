@@ -13,7 +13,7 @@ import { createOrder } from './api/createOrder';
 import { getProvinces, getDistricts, getWards, calculateShippingFee } from './api/ghn';
 import { IoLocation } from "react-icons/io5";
 import { SiCashapp } from "react-icons/si";
-import { MdEventNote} from "react-icons/md";
+import { MdEventNote } from "react-icons/md";
 
 interface Phone {
     id_cart: number;
@@ -75,11 +75,11 @@ export default function Cart() {
                 });
 
                 console.log('Response status:', response.status);
-                
+
                 if (response.ok) {
                     const result = await response.json();
                     console.log('User info result:', result);
-                    
+
                     if (result.success && result.data) {
                         const name = result.data.fullname || result.data.name || '';
                         const phone = result.data.phonenumber || '';
@@ -189,7 +189,7 @@ export default function Cart() {
             try {
                 const token = localStorage.getItem('token');
                 console.log('Checking payment for order:', orderData.orderId);
-                
+
                 const response = await fetch(`http://localhost:5000/api/payment/verify/${orderData.orderId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -203,31 +203,31 @@ export default function Cart() {
 
                 const data = await response.json();
                 console.log('Payment check result:', data);
-                
+
                 if (data.success && data.paid) {
                     console.log('Payment successful! Creating order...');
                     clearInterval(intervalId);
-                    
+
                     // Lấy thông tin đơn hàng đã lưu
                     const pendingOrderStr = localStorage.getItem('pendingOrder');
                     if (pendingOrderStr) {
                         try {
                             const pendingOrder = JSON.parse(pendingOrderStr);
                             const token = localStorage.getItem('token');
-                            
+
                             // Tạo đơn hàng sau khi thanh toán thành công
                             await createOrder(token, pendingOrder);
-                            
+
                             // Xóa pending order
                             localStorage.removeItem('pendingOrder');
                         } catch (createErr) {
                             console.error('Error creating order after payment:', createErr);
                         }
                     }
-                    
+
                     setShowQRPopup(false);
                     setShowSuccessPopup(true);
-                    
+
                     // Tự động chuyển trang sau 3 giây
                     setTimeout(() => {
                         window.location.href = '/order';
@@ -315,14 +315,14 @@ export default function Cart() {
             }
 
             const result = await updateCartQuantity(token, id_product, newQuantity);
-            
+
             // Cập nhật state local
-            setPhones(phones.map(phone => 
-                phone.id_product === id_product 
+            setPhones(phones.map(phone =>
+                phone.id_product === id_product
                     ? { ...phone, quantity: newQuantity }
                     : phone
             ));
-            
+
             // Xóa error message nếu thành công
             setErrorMessage('');
         } catch (err: any) {
@@ -330,7 +330,7 @@ export default function Cart() {
             const message = err?.message || err || 'Không thể cập nhật số lượng';
             setErrorMessage(message);
             setTimeout(() => setErrorMessage(''), 5000);
-            
+
             // Reload lại data từ server để đồng bộ
             const token = localStorage.getItem('token');
             if (token) {
@@ -403,17 +403,17 @@ export default function Cart() {
                 alert('Vui lòng chọn Tỉnh/Thành phố');
                 return;
             }
-            
+
             if (!selectedDistrict) {
                 alert('Vui lòng chọn Quận/Huyện');
                 return;
             }
-            
+
             if (!selectedWard) {
                 alert('Vui lòng chọn Phường/Xã');
                 return;
             }
-            
+
             if (!detailedAddress || !detailedAddress.trim()) {
                 alert('Vui lòng nhập địa chỉ cụ thể (số nhà, tên đường)');
                 return;
@@ -469,7 +469,7 @@ export default function Cart() {
             if (paymentMethod === 'bank_transfer') {
                 // Chỉ tạo payment record, chưa tạo đưn hàng
                 const newOrderId = 'DH' + Date.now();
-                
+
                 try {
                     const response = await fetch('http://localhost:5000/api/payment/create', {
                         method: 'POST',
@@ -504,7 +504,7 @@ export default function Cart() {
             } else {
                 // COD - Lưu đơn hàng ngay
                 const result = await createOrder(token, orderData);
-                
+
                 if (result.success) {
                     alert('\u0110ặt hàng thành công! Mã đơn hàng: ' + result.data.orderId);
                     window.location.href = '/order';
@@ -591,7 +591,7 @@ export default function Cart() {
                                                     {phone.price.toLocaleString("vi-VN")}đ
                                                 </span>
                                                 <div className={styles.quantity}>
-                                                    <button 
+                                                    <button
                                                         onClick={() => handleQuantityChange(phone.id_product, phone.quantity - 1)}
                                                         disabled={phone.quantity <= 1}
                                                         style={{
@@ -605,8 +605,8 @@ export default function Cart() {
                                                     >
                                                         -
                                                     </button>
-                                                    <input 
-                                                        type="number" 
+                                                    <input
+                                                        type="number"
                                                         value={phone.quantity}
                                                         onChange={(e) => {
                                                             const val = parseInt(e.target.value);
@@ -624,7 +624,7 @@ export default function Cart() {
                                                             fontSize: '14px'
                                                         }}
                                                     />
-                                                    <button 
+                                                    <button
                                                         onClick={() => handleQuantityChange(phone.id_product, phone.quantity + 1)}
                                                         style={{
                                                             padding: '5px 12px',
@@ -652,24 +652,24 @@ export default function Cart() {
                             })}
                         </div>
 
-                        <br/>
+                        <br />
                         <div className={styles.thongtindathang}>
-                                <h3 style={{textAlign: 'center'}}>Vui lòng cung cấp thông tin để thực hiện đặt hàng</h3>
+                            <h3 style={{ textAlign: 'center' }}>Vui lòng cung cấp thông tin để thực hiện đặt hàng</h3>
                         </div>
 
                         {/* Thông tin người nhận */}
                         <div className={styles.thongtindiachi}>
                             <div className={styles.title_location}>
-                                <MdEventNote style={{color:'green', fontWeight: 'bold'}}/>
+                                <MdEventNote style={{ color: 'green', fontWeight: 'bold' }} />
                                 <span>Thông tin người nhận</span>
                             </div>
-                            
-                            <div style={{padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px'}}>
+
+                            <div style={{ padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                                 <div>
-                                    <label style={{fontSize: '12pt', color: 'rgb(94, 94, 94)', display: 'block', marginBottom: '5px'}}>
-                                        Họ và tên người nhận <span style={{color: 'red'}}>*</span>
+                                    <label style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)', display: 'block', marginBottom: '5px' }}>
+                                        Họ và tên người nhận <span style={{ color: 'red' }}>*</span>
                                     </label>
-                                    <input 
+                                    <input
                                         type="text"
                                         value={receiverName}
                                         onChange={(e) => setReceiverName(e.target.value)}
@@ -685,12 +685,12 @@ export default function Cart() {
                                         }}
                                     />
                                 </div>
-                                
+
                                 <div>
-                                    <label style={{fontSize: '12pt', color: 'rgb(94, 94, 94)', display: 'block', marginBottom: '5px'}}>
-                                        Số điện thoại <span style={{color: 'red'}}>*</span>
+                                    <label style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)', display: 'block', marginBottom: '5px' }}>
+                                        Số điện thoại <span style={{ color: 'red' }}>*</span>
                                     </label>
-                                    <input 
+                                    <input
                                         type="tel"
                                         value={receiverPhone}
                                         onChange={(e) => setReceiverPhone(e.target.value)}
@@ -707,7 +707,7 @@ export default function Cart() {
                                         }}
                                     />
                                     {receiverPhone && receiverPhone.length < 10 && (
-                                        <small style={{color: 'red', fontSize: '11px'}}>Số điện thoại phải có ít nhất 10 số</small>
+                                        <small style={{ color: 'red', fontSize: '11px' }}>Số điện thoại phải có ít nhất 10 số</small>
                                     )}
                                 </div>
                             </div>
@@ -716,16 +716,16 @@ export default function Cart() {
                         {/*Thông tin địa chỉ */}
                         <div className={styles.thongtindiachi}>
 
-                            <div className={styles.title_location}><IoLocation style={{color:'red', fontWeight: 'bold'}}/><span>Địa chỉ giao hàng</span></div>
+                            <div className={styles.title_location}><IoLocation style={{ color: 'red', fontWeight: 'bold' }} /><span>Địa chỉ giao hàng</span></div>
                             <div className={styles.diachigiaohang}> {/*Địa chỉ giao hàng */}
                                 <div>
-                                    <span style={{fontSize: '12pt', color: 'rgb(94, 94, 94)'}}>Tỉnh/Thành phố <span style={{color: 'red'}}>*</span></span>
+                                    <span style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)' }}>Tỉnh/Thành phố <span style={{ color: 'red' }}>*</span></span>
                                     <div className={styles.tinh}>
-                                        <select 
+                                        <select
                                             value={selectedProvince}
                                             onChange={(e) => setSelectedProvince(e.target.value)}
                                             required
-                                            style={{width: '100%', padding: '8px', borderRadius: '5px', border: selectedProvince ? '1px solid #ccc' : '2px solid #ff4444'}}
+                                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: selectedProvince ? '1px solid #ccc' : '2px solid #ff4444' }}
                                         >
                                             <option value="">Chọn tỉnh/thành</option>
                                             {provinces.map((province) => (
@@ -737,14 +737,14 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div>
-                                    <span style={{fontSize: '12pt', color: 'rgb(94, 94, 94)'}}>Quận/Huyện <span style={{color: 'red'}}>*</span></span>
+                                    <span style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)' }}>Quận/Huyện <span style={{ color: 'red' }}>*</span></span>
                                     <div className={styles.quan}>
-                                        <select 
+                                        <select
                                             value={selectedDistrict}
                                             onChange={(e) => setSelectedDistrict(e.target.value)}
                                             disabled={!selectedProvince}
                                             required
-                                            style={{width: '100%', padding: '8px', borderRadius: '5px', border: selectedDistrict ? '1px solid #ccc' : '2px solid #ff4444'}}
+                                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: selectedDistrict ? '1px solid #ccc' : '2px solid #ff4444' }}
                                         >
                                             <option value="">Chọn quận/huyện</option>
                                             {districts.map((district) => (
@@ -756,14 +756,14 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div>
-                                    <span style={{fontSize: '12pt', color: 'rgb(94, 94, 94)'}}>Phường/Xã <span style={{color: 'red'}}>*</span></span>
+                                    <span style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)' }}>Phường/Xã <span style={{ color: 'red' }}>*</span></span>
                                     <div className={styles.phuong}>
-                                        <select 
+                                        <select
                                             value={selectedWard}
                                             onChange={(e) => setSelectedWard(e.target.value)}
                                             disabled={!selectedDistrict}
                                             required
-                                            style={{width: '100%', padding: '8px', borderRadius: '5px', border: selectedWard ? '1px solid #ccc' : '2px solid #ff4444'}}
+                                            style={{ width: '100%', padding: '8px', borderRadius: '5px', border: selectedWard ? '1px solid #ccc' : '2px solid #ff4444' }}
                                         >
                                             <option value="">Chọn phường/xã</option>
                                             {wards.map((ward) => (
@@ -775,11 +775,11 @@ export default function Cart() {
                                     </div>
                                 </div>
                             </div>
-                            
-                            <span style={{fontSize: '12pt', color: 'rgb(94, 94, 94)'}}>Địa chỉ cụ thể <span style={{color: 'red'}}>*</span></span>
-                            <input 
-                                className={styles.diachicuthe} 
-                                placeholder='Nhập địa chỉ cụ thể (số nhà, tên đường)...' 
+
+                            <span className={styles.diachicuthe_tt} style={{ fontSize: '12pt', color: 'rgb(94, 94, 94)' }}>Địa chỉ cụ thể <span style={{ color: 'red' }}>*</span></span>
+                            <input
+                                className={styles.diachicuthe}
+                                placeholder='Nhập địa chỉ cụ thể (số nhà, tên đường)...'
                                 type='text'
                                 value={detailedAddress}
                                 onChange={(e) => setDetailedAddress(e.target.value)}
@@ -788,19 +788,19 @@ export default function Cart() {
                                     border: detailedAddress ? '1px solid #ccc' : '2px solid #ff4444'
                                 }}
                             />
-                        
+
                         </div>
-                        <br/>
+                        <br />
 
                         {/*Phương thức thanh toán */}
                         <div className={styles.thongtindiachi}>
-                                <div className={styles.title_location}><SiCashapp style={{color:'deepskyblue', fontWeight: 'bold'}}/><span>Phương thức thanh toán</span></div>
+                            <div className={styles.title_location}><SiCashapp style={{ color: 'deepskyblue', fontWeight: 'bold' }} /><span>Phương thức thanh toán</span></div>
                             <div className={styles.luachonthanhtoan}>
 
                                 <div className={styles.typecash}>
-                                    <input 
-                                        type="radio" 
-                                        name="cash" 
+                                    <input
+                                        type="radio"
+                                        name="cash"
                                         value="cod"
                                         checked={paymentMethod === 'cod'}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
@@ -809,9 +809,9 @@ export default function Cart() {
                                 </div>
 
                                 <div className={styles.typecash}>
-                                    <input 
-                                        type="radio" 
-                                        name="cash" 
+                                    <input
+                                        type="radio"
+                                        name="cash"
                                         value="bank_transfer"
                                         checked={paymentMethod === 'bank_transfer'}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
@@ -819,14 +819,14 @@ export default function Cart() {
                                     <span>Chuyển khoản ngân hàng</span>
                                 </div>
                             </div>
-                            
+
                         </div>
-                        
-                        <br/>
+
+                        <br />
                         {/*Ghi chú */}
                         <div className={styles.thongtindiachi}>
-                            <div className={styles.title_location}><MdEventNote style={{color:'gold', fontWeight: 'bold'}}/><span>Ghi chú đơn hàng</span></div>
-                            <input style={{width: '100%', border: 'none'}} type="text" placeholder='Ghi chú thêm (tùy chọn)' />
+                            <div className={styles.title_location}><MdEventNote style={{ color: 'gold', fontWeight: 'bold' }} /><span>Ghi chú đơn hàng</span></div>
+                            <input style={{ width: '100%', border: 'none' }} type="text" placeholder='Ghi chú thêm (tùy chọn)' />
                         </div>
                     </div>
 
@@ -843,11 +843,11 @@ export default function Cart() {
                                 <span style={{ color: 'rgb(94, 94, 94)' }}>Phí vận chuyển</span>
                                 <span>
                                     {isCalculatingShipping ? (
-                                        <span style={{fontSize: '12px'}}>Tính toán...</span>
+                                        <span style={{ fontSize: '12px' }}>Tính toán...</span>
                                     ) : shippingFee > 0 ? (
                                         <span>{shippingFee.toLocaleString("vi-VN")}đ</span>
                                     ) : (
-                                        <span style={{fontSize: '12px', color: '#999'}}>Chọn địa chỉ</span>
+                                        <span style={{ fontSize: '12px', color: '#999' }}>Chọn địa chỉ</span>
                                     )}
                                 </span>
                             </div>
@@ -863,23 +863,23 @@ export default function Cart() {
                             </div>
 
                             <button disabled={tongtien === 0}
-                                 onClick={(e) => {
-                                e.preventDefault();
-                                handleCheckout();
-                                
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleCheckout();
 
-                            }} style={{ 
-                                textDecoration: 'none', 
-                                color: '#fff', 
-                                border: 'none', 
-                                background: '#A70000', 
-                                padding: '1rem 2rem', 
-                                borderRadius: '10px', 
-                                cursor: 'pointer', 
-                                fontSize: '1rem', 
-                                fontWeight: 'bold',
-                                width: '100%'
-                            }}>
+
+                                }} style={{
+                                    textDecoration: 'none',
+                                    color: '#fff',
+                                    border: 'none',
+                                    background: '#A70000',
+                                    padding: '1rem 2rem',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                    fontSize: '1rem',
+                                    fontWeight: 'bold',
+                                    width: '100%'
+                                }}>
                                 Tiến hành đặt hàng
                             </button>
 
@@ -900,20 +900,20 @@ export default function Cart() {
                 <div className={qrStyles.qrPopupOverlay} onClick={() => setShowQRPopup(false)}>
                     <div className={qrStyles.qrPopupContent} onClick={(e) => e.stopPropagation()}>
                         <button className={qrStyles.closeBtn} onClick={() => setShowQRPopup(false)}>×</button>
-                        
+
                         <h2>Quét mã QR để thanh toán</h2>
                         <p className={qrStyles.orderInfo}>
-                            Mã đơn hàng: <strong>{orderData.orderId}</strong> | 
-                            Số tiền: <strong style={{color: '#A70000'}}>{orderData.amount.toLocaleString('vi-VN')}đ</strong>
+                            Mã đơn hàng: <strong>{orderData.orderId}</strong> |
+                            Số tiền: <strong style={{ color: '#A70000' }}>{orderData.amount.toLocaleString('vi-VN')}đ</strong>
                         </p>
                         <p className={qrStyles.autoCheck}>
                             🔄 Hệ thống tự động kiểm tra thanh toán mỗi 5 giây
                         </p>
-                        
+
                         <div className={qrStyles.popupGrid}>
                             {/* Bên trái: QR Code */}
                             <div className={qrStyles.qrCodeContainer}>
-                                <img 
+                                <img
                                     src={`https://qr.sepay.vn/img?acc=0374057078&bank=VPBank&amount=2000&des=TKPNHL ${orderData.orderId}`}
                                     alt="QR Code thanh toán"
                                     className={qrStyles.qrCodeImage}

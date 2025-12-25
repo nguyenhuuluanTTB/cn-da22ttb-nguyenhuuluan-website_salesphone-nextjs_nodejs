@@ -1,9 +1,9 @@
-const  User = require("../model/User"); // Sequelize model
-const  UserInformation = require("../model/UserInformation"); // Sequelize model
+const User = require("../model/User"); // Sequelize model
+const UserInformation = require("../model/UserInformation"); // Sequelize model
 
 const bcrypt = require("bcryptjs");
 const { OAuth2Client } = require("google-auth-library");
-const { generateToken } = require("../util/authUtils");
+const { generateToken, verifyToken } = require("../util/authUtils");
 const otpService = require("../service/otpService");
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
 
     const user = await User.create({ name, email, password: hashedPassword });
 
-    
+
 
     return res.status(201).json({ message: "Đăng ký thành công", user: { id: user.id_user, name, email } });
   } catch (err) {
@@ -40,10 +40,17 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Sai email hoặc mật khẩu" });
     }
 
+    // Kiểm tra tài khoản có bị vô hiệu hóa không
+    if (!user.enable) {
+      return res.status(403).json({
+        message: "Tài khoản của bạn đã bị khóa. Có lẽ bạn đã vi phạm chính sách của SalesPhone. Vui lòng liên hệ bộ phận hỗ trợ để biết thêm chi tiết."
+      });
+    }
+
     // Nếu tài khoản Google (không có password)
     if (!user.password || user.password === "GOOGLE_AUTH") {
-      return res.status(400).json({ 
-        message: "Tài khoản này chỉ hỗ trợ đăng nhập bằng Google" 
+      return res.status(400).json({
+        message: "Tài khoản này chỉ hỗ trợ đăng nhập bằng Google"
       });
     }
 
@@ -54,7 +61,7 @@ exports.login = async (req, res) => {
     }
 
     // Tạo token JWT
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = generateToken({ id: user.id_user, email: user.email });
 
     return res.json({ token, message: "Đăng nhập thành công" });
   } catch (err) {
@@ -115,17 +122,17 @@ exports.verifyOtp = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword });
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = generateToken({ id: user.id_user, email: user.email });
 
-    const userId = user.id_user; 
+    const userId = user.id_user;
     await UserInformation.create({
-        id_user: userId,
-        fullname: '',
-        phone_number: '',
-        gender: '',
-        address: ''
-      });
-    return res.json({ token, message: "Đăng ký thành công", user: { id: user.id, name, email } });
+      id_user: userId,
+      fullname: '',
+      phone_number: '',
+      gender: '',
+      address: ''
+    });
+    return res.json({ token, message: "Đăng ký thành công", user: { id: user.id_user, name, email } });
   } catch (err) {
     console.error(err);
     return res.status(400).json({ message: err.message });
@@ -153,9 +160,9 @@ exports.loginGoogle = async (req, res) => {
     let user = await User.findOne({ where: { email } });
     if (!user) {
       user = await User.create({ name, email, password: "$adfadfas$q123sdfee" });
-      
-      const userId = user.id_user; 
-      
+
+      const userId = user.id_user;
+
       // Chỉ tạo UserInformation nếu là user mới
       await UserInformation.create({
         id_user: userId,
@@ -163,6 +170,13 @@ exports.loginGoogle = async (req, res) => {
         phone_number: '',
         gender: '',
         address: ''
+      });
+    }
+
+    // Kiểm tra tài khoản có bị vô hiệu hóa không
+    if (!user.enable) {
+      return res.status(403).json({
+        message: "Tài khoản của bạn đã bị khóa. Có lẽ bạn đã vi phạm chính sách của SalesPhone. Vui lòng liên hệ bộ phận hỗ trợ để biết thêm chi tiết."
       });
     }
 
@@ -230,3 +244,75 @@ exports.loginGoogle = async (req, res) => {
 //     return res.status(400).json({ message: err.message });
 //   }
 // };
+
+// Quên mật khẩu - Gửi OTP
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+    if (!user) return res.status(400).json({ message: "Email không tồn tại" });
+
+    if (!user.password || user.password === "$adfadfas$q123sdfee") {
+      return res.status(400).json({ message: "Tài khoản Google không thể đổi mật khẩu" });
+    }
+
+    const otp = await otpService.sendOtp(email);
+    return res.json({ message: otp.message });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Lỗi server khi gửi OTP" });
+  }
+};
+
+// Quên mật khẩu - Xác thực OTP
+exports.verifyForgotOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    await otpService.verifyOtp(email, otp);
+
+    const resetToken = generateToken({ email, type: 'reset' });
+
+    return res.json({ success: true, message: "OTP hợp lệ", resetToken });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
+// Quên mật khẩu - Đặt lại mật khẩu
+exports.resetPassword = async (req, res) => {
+  try {
+    const { resetToken, newPassword } = req.body;
+
+    if (!resetToken) return res.status(400).json({ message: "Thiếu token" });
+
+    let decoded;
+    try {
+      decoded = verifyToken(resetToken);
+    } catch (e) {
+      return res.status(400).json({ message: "Token không hợp lệ hoặc đã hết hạn" });
+    }
+
+    if (decoded.type !== 'reset') {
+      return res.status(400).json({ message: "Token không hợp lệ" });
+    }
+
+    const email = decoded.email;
+    const user = await User.findOne({ where: { email } });
+    if (!user) return res.status(400).json({ message: "Người dùng không tồn tại" });
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.json({ message: "Đổi mật khẩu thành công" });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    console.error('Error details:', {
+      message: err.message,
+      stack: err.stack,
+      name: err.name
+    });
+    return res.status(500).json({ message: "Lỗi server khi đổi mật khẩu" });
+  }
+};
