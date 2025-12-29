@@ -115,9 +115,3 @@ Dự án đã tích hợp sẵn API Giao Hàng Nhanh. Để tính năng này ho�
   - Đồng bộ đơn hàng sang GHN.
 
 ---
-
-## 📞 Liên Hệ
-
-Nếu gặp vấn đề trong quá trình cài đặt, vui lòng kiểm tra lại file log hoặc liên hệ với team phát triển.
-
-Make with ❤️ by **Nguyen Huu Luan Team**
