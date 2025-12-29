@@ -1,0 +1,4 @@
+Link Download Xampp: https://www.apachefriends.org/download.html
+Link Download Visual Studio Code: https://code.visualstudio.com/download
+Link Download NodeJS: https://nodejs.org/en/download
+Link Download Docker: https://www.docker.com/products/docker-desktop/

@@ -1,0 +1,355 @@
+.container_manage_order {
+    width: 100%;
+    padding: 2rem 4rem;
+
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+    }
+
+    .filter_section {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+                border-color: #4CAF50;
+            }
+        }
+    }
+
+    .container{
+        padding: 2rem;
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table_container {
+        overflow-x: auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                background-color: #A70000;
+                color: #fff;
+
+                tr th {
+                    padding: 12px;
+                    text-align: left;
+                    font-weight: 600;
+                    border-bottom: 2px solid #ddd;
+                    white-space: nowrap;
+                }
+            }
+
+            tbody {
+                tr {
+                    border-bottom: 1px solid #eee;
+
+                    &:hover {
+                        background-color: #f9f9f9;
+                    }
+
+                    td {
+                        padding: 12px;
+
+                        .status_badge {
+                            padding: 4px 12px;
+                            border-radius: 12px;
+                            font-size: 12px;
+                            font-weight: 600;
+                            display: inline-block;
+
+                            &.pending {
+                                background-color: #FFF3CD;
+                                color: #856404;
+                            }
+
+                            &.processing {
+                                background-color: #CCE5FF;
+                                color: #004085;
+                            }
+
+                            &.shipping {
+                                background-color: #D1ECF1;
+                                color: #0C5460;
+                            }
+
+                            &.completed {
+                                background-color: #D4EDDA;
+                                color: #155724;
+                            }
+
+                            &.cancelled {
+                                background-color: #F8D7DA;
+                                color: #721C24;
+                            }
+
+                            &.paid {
+                                background-color: #D4EDDA;
+                                color: #155724;
+                            }
+
+                            &.unpaid {
+                                background-color: #F8D7DA;
+                                color: #721C24;
+                            }
+                        }
+
+                        .action_buttons {
+                            display: flex;
+                            gap: 8px;
+                            flex-direction: column;
+
+                            button {
+                                padding: 6px 12px;
+                                border: none;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-size: 14px;
+                                white-space: nowrap;
+
+                                &.btn_view {
+                                    background-color: #A70000;
+                                    color: white;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    transition: all 0.3s;
+
+                                    &:hover {
+                                        scale: 1.05;
+                                    }
+                                }
+
+                                &.btn_update {
+                                    background-color: #A70000;
+                                    color: white;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    transition: all 0.3s;
+
+                                    &:hover {
+                                        scale: 1.05;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .modal_overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+
+        .modal_content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+
+            h2 {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #f0f0f0;
+                padding-bottom: 10px;
+            }
+
+            .order_info {
+                margin-bottom: 20px;
+
+                .info_row {
+                    display: grid;
+                    grid-template-columns: 150px 1fr;
+                    gap: 10px;
+                    margin-bottom: 10px;
+
+                    .label {
+                        font-weight: 600;
+                        color: #666;
+                    }
+
+                    .value {
+                        color: #333;
+                    }
+                }
+            }
+
+            .order_items {
+                margin-top: 20px;
+
+                h3 {
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 15px;
+                }
+
+                .item {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px;
+                    border: 1px solid #eee;
+                    margin-bottom: 10px;
+                    border-radius: 4px;
+
+                    .item_info {
+                        flex: 1;
+
+                        .item_name {
+                            font-weight: 600;
+                            margin-bottom: 5px;
+                        }
+
+                        .item_detail {
+                            font-size: 14px;
+                            color: #666;
+                        }
+                    }
+
+                    .item_price {
+                        text-align: right;
+                        font-weight: 600;
+                        color: #4CAF50;
+                    }
+                }
+
+                .total {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 15px;
+                    background-color: #f5f5f5;
+                    border-radius: 4px;
+                    margin-top: 15px;
+                    font-size: 18px;
+                    font-weight: bold;
+
+                    .total_label {
+                        color: #333;
+                    }
+
+                    .total_amount {
+                        color: #4CAF50;
+                    }
+                }
+            }
+
+            .form_group {
+                margin-bottom: 15px;
+
+                label {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-weight: 500;
+                    color: #333;
+                }
+
+                select {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 14px;
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4CAF50;
+                    }
+                }
+            }
+
+            .modal_buttons {
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+                margin-top: 20px;
+                
+
+                button {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+
+                    &.btn_submit {
+                        background-color: #4CAF50;
+                        color: white;
+
+                        &:hover {
+                            background-color: #45a049;
+                        }
+                    }
+
+                    &.btn_cancel {
+                        background-color: #757575;
+                        color: white;
+
+                        &:hover {
+                            background-color: #616161;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 2000;
+        animation: slideIn 0.3s ease-out;
+
+        &.error {
+            background-color: #f44336;
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

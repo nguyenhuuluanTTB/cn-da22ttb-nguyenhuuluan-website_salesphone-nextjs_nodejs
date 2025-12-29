@@ -1,0 +1,59 @@
+.header{
+    padding: 8px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background-color: #A70000;
+}
+
+.container{
+    max-width: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem;
+}
+
+.logo_category{
+    display: flex;
+    flex-direction: row;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: row;
+  text-decoration: none;
+  color: #fff;
+  margin-right: 0.5rem;
+
+  .logoText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .slogan {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+
+    .navItem{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.8rem;
+    }
+}
+
