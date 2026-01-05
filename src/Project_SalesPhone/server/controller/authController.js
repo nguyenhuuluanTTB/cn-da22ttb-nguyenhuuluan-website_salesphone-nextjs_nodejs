@@ -47,6 +47,13 @@ exports.login = async (req, res) => {
       });
     }
 
+    // Chỉ cho phép role=user đăng nhập
+    if (user.role !== "user") {
+      return res.status(403).json({
+        message: "Tài khoản này không có quyền đăng nhập người dùng."
+      });
+    }
+
     // Nếu tài khoản Google (không có password)
     if (!user.password || user.password === "GOOGLE_AUTH") {
       return res.status(400).json({
@@ -177,6 +184,13 @@ exports.loginGoogle = async (req, res) => {
     if (!user.enable) {
       return res.status(403).json({
         message: "Tài khoản của bạn đã bị khóa. Có lẽ bạn đã vi phạm chính sách của SalesPhone. Vui lòng liên hệ bộ phận hỗ trợ để biết thêm chi tiết."
+      });
+    }
+
+    // Chỉ cho phép role=user đăng nhập
+    if (user.role !== "user") {
+      return res.status(403).json({
+        message: "Tài khoản này không có quyền đăng nhập người dùng."
       });
     }
 

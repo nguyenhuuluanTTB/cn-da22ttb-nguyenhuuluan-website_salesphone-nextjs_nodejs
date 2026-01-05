@@ -411,8 +411,8 @@ export default function Home() {
                             <div className={styles.grid}>
                                 {phonesHugeSales.map((phone) => {
                                     const discountedPrice =
-                                        phone.discount > 0
-                                            ? Math.round(phone.price * (1 - phone.discount / 100))
+                                        phone.percent > 0
+                                            ? Math.round(phone.price * (1 - phone.percent / 100))
                                             : phone.price;
 
                                     return (
@@ -490,7 +490,7 @@ export default function Home() {
                                 <div className={styles.grid}>
                                     {phones.map((phone) => {
 
-                                        const discountedPrice = phone.discount > 0 ? Math.round(phone.price * (1 - phone.discount / 100)) : phone.price;
+                                        const discountedPrice = phone.percent > 0 ? Math.round(phone.price * (1 - phone.percent / 100)) : phone.price;
 
                                         return (
                                             <Link key={phone.phone_id} href={`/home/detail_product/${phone.product_code}`} style={{ textDecoration: 'none' }}>
@@ -543,7 +543,7 @@ export default function Home() {
                             <div className={styles.grid}>
                                 {phone50.map((phone) => {
 
-                                    const discountedPrice = phone.discount > 0 ? Math.round(phone.price * (1 - phone.discount / 100)) : phone.price;
+                                    const discountedPrice = phone.percent > 0 ? Math.round(phone.price * (1 - phone.percent / 100)) : phone.price;
 
                                     return (
                                         <Link key={phone.phone_id} href={`/home/detail_product/${phone.product_code}`} style={{ textDecoration: 'none' }}>
@@ -595,7 +595,7 @@ export default function Home() {
                             <div className={styles.grid}>
                                 {phoneUnder5Tr.map((phone) => {
 
-                                    const discountedPrice = phone.discount > 0 ? Math.round(phone.price * (1 - phone.discount / 100)) : phone.price;
+                                    const discountedPrice = phone.percent > 0 ? Math.round(phone.price * (1 - phone.percent / 100)) : phone.price;
 
                                     return (
                                         <Link key={phone.phone_id} href={`/home/detail_product/${phone.product_code}`} style={{ textDecoration: 'none' }}>
@@ -750,8 +750,8 @@ export default function Home() {
 
                         <div className={styles.sidebar}>
                             {sidebarPosts.map((post, i) => (
-                                <Link href={post.link}>
-                                    <div key={i} className={styles.sidebarCard}>
+                                <Link key={i} href={post.link}>
+                                    <div className={styles.sidebarCard}>
                                         <div className={styles.tag}> <Image src={post.tag} alt="Galaxy Z Fold 6" width={70} height={70} /> </div>
 
                                         <div className={styles.sidebarContent}>

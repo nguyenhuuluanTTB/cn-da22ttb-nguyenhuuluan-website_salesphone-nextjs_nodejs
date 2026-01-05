@@ -317,6 +317,7 @@
     border: solid 1px gainsboro;
     padding: 0.5rem 1rem;
     border-radius: 15px;
+    font-size: 14px;
 }
 
 .diachicuthe {
@@ -324,6 +325,7 @@
     padding: 0.5rem 1rem;
     border-radius: 15px;
     width: 100%;
+    font-size: 14px;
 }
 
 
@@ -375,5 +377,122 @@
 
     .diachicuthe {
         font-size: 11pt;
+    }
+}
+
+// Popup xác nhận xóa
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    min-width: 350px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+
+    p {
+        font-size: 1.1rem;
+        color: #333;
+        text-align: center;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 1rem;
+
+        button {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        .btnhuy {
+            background-color: #e0e0e0;
+            color: #333;
+
+            &:hover {
+                background-color: #d0d0d0;
+            }
+        }
+
+        .btnxacnhan {
+            background: linear-gradient(135deg, #A70000 0%, #d32f2f 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(167, 0, 0, 0.3);
+
+            &:hover {
+                background: linear-gradient(135deg, #8b0000 0%, #b71c1c 100%);
+                box-shadow: 0 6px 20px rgba(167, 0, 0, 0.4);
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .popup {
+        min-width: 300px;
+        padding: 1.5rem;
+
+        p {
+            font-size: 1rem;
+        }
+
+        .btn {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+            }
+        }
     }
 }

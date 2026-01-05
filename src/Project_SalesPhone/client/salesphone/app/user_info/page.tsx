@@ -42,6 +42,8 @@ export default function UserInfo() {
 
     const [user_inf, setUser_inf] = useState<UserInformation | null>(null);
 
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
 
     //Lưu trữ dữ liệu cho phần cập nhật
     const [fullname, setfullname] = useState('');
@@ -49,6 +51,9 @@ export default function UserInfo() {
     const [gender, setgender] = useState('Nam');
     const [address, setaddress] = useState('');
     const [popupVisible, setPopupVisible] = useState(false);
+
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
+    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState<string | null>(null);
 
 
     useEffect(() => {
@@ -88,6 +93,25 @@ export default function UserInfo() {
 
                 setUser_inf(normalized);
 
+                // fetch avatar as blob
+                try {
+                    const avatarRes = await fetch('http://localhost:5000/api/user_avatar', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    });
+
+                    if (avatarRes.ok) {
+                        const blob = await avatarRes.blob();
+                        const objUrl = URL.createObjectURL(blob);
+                        setAvatarUrl(objUrl);
+                    } else {
+                        setAvatarUrl(null);
+                    }
+                } catch (e) {
+                    setAvatarUrl(null);
+                }
+
             } catch (err: any) {
                 console.error("Error while fetching data: ", err);
             }
@@ -96,6 +120,13 @@ export default function UserInfo() {
         fetchUserInfo();
 
     }, []);
+
+    useEffect(() => {
+        return () => {
+            if (avatarUrl) URL.revokeObjectURL(avatarUrl);
+            if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+        };
+    }, [avatarUrl, avatarPreviewUrl]);
 
 
     useEffect(() => {
@@ -118,7 +149,8 @@ export default function UserInfo() {
             fullname === user_inf?.fullname &&
             phonenumber === user_inf?.phonenumber &&
             gender === user_inf?.gender &&
-            address === user_inf?.address
+            address === user_inf?.address &&
+            !avatarFile
         ) {
             setPopup({ visible: true, message: "Không có thay đổi nào để cập nhật!", type: "warning" });
             return; // thoát hàm, không gọi API
@@ -126,7 +158,7 @@ export default function UserInfo() {
 
         try {
             const token = localStorage.getItem('token');
-            const result = await updateUserInformation({ token, fullname, phonenumber, gender, address });
+            const result = await updateUserInformation({ token, fullname, phonenumber, gender, address, avatarFile });
             //window.location.reload();
             if (result.success) {
                 setPopup({ visible: true, message: "Cập nhật thành công!", type: "success" });
@@ -150,7 +182,15 @@ export default function UserInfo() {
 
                     <div className={styles.avt_name}>
 
-                        <MdAccountCircle className={styles.icon_account} style={{ fontSize: '100pt' }} />
+                        {avatarUrl ? (
+                            <img
+                                src={avatarUrl}
+                                alt="Avatar"
+                                style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <MdAccountCircle className={styles.icon_account} style={{ fontSize: '100pt' }} />
+                        )}
                         <div>
                             <span style={{ fontSize: '20pt', fontWeight: 'bold' }}>{user_inf?.name}</span>
                             <span style={{ color: '#939393ff' }}>{user_inf?.email}</span>
@@ -276,6 +316,34 @@ export default function UserInfo() {
                         // onChange={(e) => setEmail(e.target.value)}
                         onChange={(e) => setaddress(e.target.value)}
                     />
+
+                    <label>Ảnh đại diện: </label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        className="form-control"
+                        style={{ borderColor: 'black' }}
+                        onChange={(e) => {
+                            const file = e.target.files?.[0] ?? null;
+                            setAvatarFile(file);
+                            if (avatarPreviewUrl) URL.revokeObjectURL(avatarPreviewUrl);
+                            if (file) {
+                                setAvatarPreviewUrl(URL.createObjectURL(file));
+                            } else {
+                                setAvatarPreviewUrl(null);
+                            }
+                        }}
+                    />
+
+                    {(avatarPreviewUrl || avatarUrl) && (
+                        <div style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'center' }}>
+                            <img
+                                src={avatarPreviewUrl ?? avatarUrl ?? ''}
+                                alt="Avatar preview"
+                                style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover' }}
+                            />
+                        </div>
+                    )}
 
                     <button type="submit">Cập nhật</button>
                 </form>

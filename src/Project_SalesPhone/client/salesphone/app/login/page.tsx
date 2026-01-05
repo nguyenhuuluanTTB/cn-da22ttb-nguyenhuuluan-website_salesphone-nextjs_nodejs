@@ -57,7 +57,9 @@ export default function Login() {
                 }
             } catch (err: any) {
                 console.error('Error sending credential to backend (loginWithGoogle):', err);
-                const message = err?.message || (err && err.message) || 'Đăng nhập Google thất bại';
+                const message = err?.message || (err?.status === 403
+                    ? 'Tài khoản này không có quyền đăng nhập người dùng.'
+                    : 'Đăng nhập Google thất bại');
                 setPopup({ visible: true, message, type: 'error' });
             }
         };
@@ -161,7 +163,12 @@ export default function Login() {
             window.location.href = '/home';
         } catch (err: any) {
             if (err.error) setErrors(err.error);
-            else setPopup({ visible: true, message: err.message || "Đăng nhập thất bại", type: "error" });
+            else {
+                const message = err?.message || (err?.status === 403
+                    ? 'Tài khoản này không có quyền đăng nhập người dùng.'
+                    : 'Đăng nhập thất bại');
+                setPopup({ visible: true, message, type: "error" });
+            }
         }
     };
     // Phần cho validate>

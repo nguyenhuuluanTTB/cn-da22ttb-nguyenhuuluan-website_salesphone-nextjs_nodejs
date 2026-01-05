@@ -11,6 +11,7 @@ import { getProduct } from './api/getProductInCart';
 import { updateCartQuantity } from './api/updateCartQuantity';
 import { createOrder } from './api/createOrder';
 import { getProvinces, getDistricts, getWards, calculateShippingFee } from './api/ghn';
+import { deleteCartItem, deleteAllCartItems } from './api/deleteCartItem';
 import { IoLocation } from "react-icons/io5";
 import { SiCashapp } from "react-icons/si";
 import { MdEventNote } from "react-icons/md";
@@ -41,6 +42,10 @@ export default function Cart() {
     });
     const [checkingPayment, setCheckingPayment] = useState(false);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [showWarningPopup, setShowWarningPopup] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const [confirmAction, setConfirmAction] = useState<{ type: 'delete' | 'deleteAll', id?: number } | null>(null);
 
     // State cho địa chỉ giao hàng
     const [provinces, setProvinces] = useState<any[]>([]);
@@ -83,9 +88,11 @@ export default function Cart() {
                     if (result.success && result.data) {
                         const name = result.data.fullname || result.data.name || '';
                         const phone = result.data.phonenumber || '';
-                        console.log('Setting receiver info:', { name, phone });
+                        const address = result.data.address || '';
+                        console.log('Setting receiver info:', { name, phone, address });
                         setReceiverName(name);
                         setReceiverPhone(phone);
+                        setDetailedAddress(address);
                     } else {
                         console.log('No data in result or not success');
                     }
@@ -372,6 +379,72 @@ export default function Cart() {
         .filter(phone => selectedIds.includes(phone.id_product))
         .reduce((sl, phone) => sl + phone.quantity, 0);
 
+    // Hàm xóa một sản phẩm
+    const handleDeleteItem = async (id_product: number) => {
+        // Hiển thị popup xác nhận
+        setConfirmAction({ type: 'delete', id: id_product });
+        setShowConfirmPopup(true);
+    };
+
+    // Hàm xóa tất cả sản phẩm
+    const handleDeleteAll = async () => {
+        if (phones.length === 0) {
+            setWarningMessage('Giỏ hàng đã trống');
+            setShowWarningPopup(true);
+            return;
+        }
+
+        // Hiển thị popup xác nhận
+        setConfirmAction({ type: 'deleteAll' });
+        setShowConfirmPopup(true);
+    };
+
+    // Hàm xử lý xác nhận xóa
+    const handleConfirmDelete = async () => {
+        if (!confirmAction) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.dispatchEvent(new Event('showAuthPopup'));
+                setShowConfirmPopup(false);
+                return;
+            }
+
+            if (confirmAction.type === 'delete' && confirmAction.id) {
+                // Xóa một sản phẩm
+                const result = await deleteCartItem(token, confirmAction.id);
+                
+                if (result.success) {
+                    setPhones(phones.filter(p => p.id_product !== confirmAction.id));
+                    setSelectedIds(selectedIds.filter(id => id !== confirmAction.id));
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage(result.message || 'Không thể xóa sản phẩm');
+                }
+            } else if (confirmAction.type === 'deleteAll') {
+                // Xóa tất cả
+                const result = await deleteAllCartItems(token);
+                
+                if (result.success) {
+                    setPhones([]);
+                    setSelectedIds([]);
+                    setSelectAll(false);
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage(result.message || 'Không thể xóa giỏ hàng');
+                }
+            }
+
+            setShowConfirmPopup(false);
+            setConfirmAction(null);
+        } catch (error) {
+            console.error('Delete error:', error);
+            setErrorMessage('Có lỗi xảy ra khi xóa');
+            setShowConfirmPopup(false);
+        }
+    };
+
     // Hàm xử lý đặt hàng
     const handleCheckout = async () => {
         try {
@@ -383,45 +456,53 @@ export default function Cart() {
 
             // Kiểm tra thông tin người nhận
             if (!receiverName || !receiverName.trim()) {
-                alert('Vui lòng nhập họ và tên người nhận');
+                setWarningMessage('Vui lòng nhập họ và tên người nhận');
+                setShowWarningPopup(true);
                 return;
             }
 
             if (!receiverPhone || !receiverPhone.trim()) {
-                alert('Vui lòng nhập số điện thoại người nhận');
+                setWarningMessage('Vui lòng nhập số điện thoại người nhận');
+                setShowWarningPopup(true);
                 return;
             }
 
             // Kiểm tra định dạng số điện thoại
             if (receiverPhone.length < 10 || !/^[0-9]{10,11}$/.test(receiverPhone)) {
-                alert('Số điện thoại không hợp lệ. Vui lòng nhập 10-11 số');
+                setWarningMessage('Số điện thoại không hợp lệ. Vui lòng nhập 10-11 số');
+                setShowWarningPopup(true);
                 return;
             }
 
             // Kiểm tra địa chỉ
             if (!selectedProvince) {
-                alert('Vui lòng chọn Tỉnh/Thành phố');
+                setWarningMessage('Vui lòng chọn Tỉnh/Thành phố');
+                setShowWarningPopup(true);
                 return;
             }
 
             if (!selectedDistrict) {
-                alert('Vui lòng chọn Quận/Huyện');
+                setWarningMessage('Vui lòng chọn Quận/Huyện');
+                setShowWarningPopup(true);
                 return;
             }
 
             if (!selectedWard) {
-                alert('Vui lòng chọn Phường/Xã');
+                setWarningMessage('Vui lòng chọn Phường/Xã');
+                setShowWarningPopup(true);
                 return;
             }
 
             if (!detailedAddress || !detailedAddress.trim()) {
-                alert('Vui lòng nhập địa chỉ cụ thể (số nhà, tên đường)');
+                setWarningMessage('Vui lòng nhập địa chỉ cụ thể (số nhà, tên đường)');
+                setShowWarningPopup(true);
                 return;
             }
 
             // Kiểm tra phương thức thanh toán
             if (!paymentMethod) {
-                alert('Vui lòng chọn phương thức thanh toán');
+                setWarningMessage('Vui lòng chọn phương thức thanh toán');
+                setShowWarningPopup(true);
                 return;
             }
 
@@ -437,7 +518,8 @@ export default function Cart() {
                 }));
 
             if (selectedProducts.length === 0) {
-                alert('Vui lòng chọn sản phẩm để đặt hàng');
+                setWarningMessage('Vui lòng chọn ít nhất một sản phẩm để đặt hàng');
+                setShowWarningPopup(true);
                 return;
             }
 
@@ -506,15 +588,20 @@ export default function Cart() {
                 const result = await createOrder(token, orderData);
 
                 if (result.success) {
-                    alert('\u0110ặt hàng thành công! Mã đơn hàng: ' + result.data.orderId);
-                    window.location.href = '/order';
+                    setOrderData({
+                        orderId: result.data.orderId,
+                        amount: tongtien + shippingFee
+                    });
+                    setShowSuccessPopup(true);
                 } else {
-                    alert(result.message || '\u0110ặt hàng thất bại');
+                    setWarningMessage(result.message || 'Đặt hàng thất bại');
+                    setShowWarningPopup(true);
                 }
             }
         } catch (error) {
             console.error('Checkout error:', error);
-            alert(error.message || 'Có lỗi xảy ra khi đặt hàng');
+            setWarningMessage(error.message || 'Có lỗi xảy ra khi đặt hàng');
+            setShowWarningPopup(true);
         }
     };
 
@@ -558,7 +645,7 @@ export default function Cart() {
                                 <span>Chọn tất cả</span>
                             </div>
 
-                            <div className={styles.delete_all}>
+                            <div className={styles.delete_all} onClick={handleDeleteAll} style={{ cursor: 'pointer' }}>
                                 <FaRegTrashAlt /><span>Xóa tất cả</span>
                             </div>
                         </div>
@@ -641,7 +728,13 @@ export default function Cart() {
                                             </div>
                                         </div>
                                         <div className={styles.right}>
-                                            <div className={styles.icon_trash}><FaRegTrashAlt /></div>
+                                            <div 
+                                                className={styles.icon_trash} 
+                                                onClick={() => handleDeleteItem(phone.id_product)}
+                                                style={{ cursor: 'pointer' }}
+                                            >
+                                                <FaRegTrashAlt />
+                                            </div>
                                             <div className={styles.price}>
                                                 <span style={{ fontSize: '10pt', color: 'rgb(94, 94, 94)' }}>Thành tiền</span>
                                                 <span style={{ color: '#A70000' }}>{thanhtien.toLocaleString("vi-VN")}đ</span>
@@ -947,12 +1040,68 @@ export default function Cart() {
 
             {/* Popup thanh toán thành công */}
             {showSuccessPopup && (
-                <div className={qrStyles.qrPopupOverlay}>
-                    <div className={qrStyles.successPopup}>
+                <div className={qrStyles.qrPopupOverlay} onClick={() => setShowSuccessPopup(false)}>
+                    <div className={qrStyles.successPopup} onClick={(e) => e.stopPropagation()}>
                         <div className={qrStyles.successIcon}>✓</div>
-                        <h2>Thanh toán thành công!</h2>
-                        <p>Đơn hàng <strong>{orderData.orderId}</strong> đã được thanh toán</p>
-                        <p className={qrStyles.redirectMsg}>Đang chuyển đến trang đơn hàng...</p>
+                        <h2>Đặt hàng thành công!</h2>
+                        <p>Đơn hàng <strong>{orderData.orderId}</strong> đã được tạo</p>
+                        <p className={qrStyles.successMessage}>Cảm ơn bạn đã mua hàng!</p>
+                        <button 
+                            className={qrStyles.successButton}
+                            onClick={() => {
+                                setShowSuccessPopup(false);
+                                window.location.href = '/order';
+                            }}
+                        >
+                            Xem đơn hàng
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Popup cảnh báo thiếu thông tin */}
+            {showWarningPopup && (
+                <div className={qrStyles.qrPopupOverlay} onClick={() => setShowWarningPopup(false)}>
+                    <div className={qrStyles.warningPopup} onClick={(e) => e.stopPropagation()}>
+                        <div className={qrStyles.warningIcon}>⚠️</div>
+                        <h2>Thông tin chưa đầy đủ</h2>
+                        <p>{warningMessage}</p>
+                        <button 
+                            className={qrStyles.okButton}
+                            onClick={() => setShowWarningPopup(false)}
+                        >
+                            Đã hiểu
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Popup xác nhận xóa */}
+            {showConfirmPopup && (
+                <div className={styles.overlay} onClick={() => setShowConfirmPopup(false)}>
+                    <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+                        <p>
+                            {confirmAction?.type === 'deleteAll' 
+                                ? 'Bạn có chắc chắn muốn xóa tất cả sản phẩm?' 
+                                : 'Bạn có chắc chắn muốn xóa sản phẩm này?'}
+                        </p>
+                        <div className={styles.btn}>
+                            <button 
+                                className={styles.btnhuy} 
+                                onClick={() => {
+                                    setShowConfirmPopup(false);
+                                    setConfirmAction(null);
+                                }}
+                            >
+                                Hủy
+                            </button>
+                            <button 
+                                className={styles.btnxacnhan} 
+                                onClick={handleConfirmDelete}
+                            >
+                                Xác nhận
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

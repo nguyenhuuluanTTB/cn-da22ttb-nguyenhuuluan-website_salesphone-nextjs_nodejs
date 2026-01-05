@@ -385,8 +385,10 @@ export default function detail_product() {
 
                             <div className={styles.gia}>
                                 <span style={{ color: '#A70000', fontWeight: 'bold' }}>Giá sản phẩm</span>
-                                <span style={{ fontSize: '30pt', fontWeight: 'bold' }}>{phone?.price.toLocaleString("vi-VN")}đ</span>
-                                <span style={{ color: '#919090', fontWeight: 'bold', fontSize: '20pt', textDecoration: 'line-through' }}>{discountedPrice.toLocaleString("vi-VN")}đ</span>
+                                <span style={{ fontSize: '30pt', fontWeight: 'bold' }}>{discountedPrice.toLocaleString("vi-VN")}đ</span>
+                                {discount > 0 && (
+                                    <span style={{ color: '#919090', fontWeight: 'bold', fontSize: '20pt', textDecoration: 'line-through' }}>{phone?.price.toLocaleString("vi-VN")}đ</span>
+                                )}
                             </div>
                             <div className={styles.line}></div>
                             <div>

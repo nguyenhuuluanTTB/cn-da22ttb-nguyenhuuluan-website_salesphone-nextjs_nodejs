@@ -1,14 +1,31 @@
+"use client";
+
 import styles from './header.module.scss';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 
 import { RiAccountCircle2Fill } from "react-icons/ri";
 import { AiFillProduct } from "react-icons/ai";
 import { LuBadgePercent } from "react-icons/lu";
 import { FaShoppingBag } from "react-icons/fa";
 import { FcStatistics } from "react-icons/fc";
+import { FiLogOut } from "react-icons/fi";
 import logo from './media/logo.png';
 import Image from 'next/image';
+
 export default function Header(){
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        router.push('/login');
+    };
+
+    // Không hiển thị header trên trang login
+    if (pathname === '/login') {
+        return null;
+    }
 
     return(
         <header className={styles.header}>
@@ -50,9 +67,10 @@ export default function Header(){
                         <FcStatistics style={{fontSize: '23pt'}}/>
                         <span>Thống kê</span>
                     </Link>
-                    <div className={styles.account}>
-
-                    </div>
+                    <button onClick={handleLogout} className={styles.logoutBtn}>
+                        <FiLogOut style={{fontSize: '23pt'}}/>
+                        <span>Đăng xuất</span>
+                    </button>
 
                 </nav>
 

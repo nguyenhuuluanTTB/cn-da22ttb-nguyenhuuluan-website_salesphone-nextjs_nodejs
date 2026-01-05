@@ -31,14 +31,14 @@ exports.createOrder = async (req, res) => {
         const transaction = await sequelize.transaction();
 
         try {
-            // 1. Tạo đơn hàng - completed và paid luôn
+            // 1. Tạo đơn hàng - chờ xử lý
             const paymentStatus = 'paid'; // Đã thanh toán luôn
-            const orderStatus = 'completed'; // Hoàn thành luôn
+            const orderStatus = 'chờ xử lý'; // Chờ xử lý
 
             await sequelize.query(
                 `INSERT INTO orders (id, id_user, receiver_name, shipping_phone, total_amount, shipping_fee, shipping_address, 
-                 payment_method, payment_status, status, created_at, updated_at)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+                 payment_status, status, created_at, updated_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
                 {
                     replacements: [
                         orderId,
@@ -48,7 +48,6 @@ exports.createOrder = async (req, res) => {
                         totalAmount,
                         shippingFee || 0,
                         JSON.stringify(shippingAddress),
-                        paymentMethod,
                         paymentStatus,
                         orderStatus
                     ],
@@ -102,79 +101,67 @@ exports.createOrder = async (req, res) => {
             // Commit transaction
             await transaction.commit();
 
-            // 5. Tạo đơn hàng trên Giao Hàng Nhanh (nếu COD)
-            let ghnOrderCode = null;
-            if (paymentMethod === 'cod') {
-                try {
-                    console.log('Starting GHN order creation for:', orderId);
-
-                    // Lấy thông tin sản phẩm để gửi GHN
-                    const [productDetails] = await sequelize.query(
-                        `SELECT p.name_product, p.id_product FROM product p WHERE p.id_product IN (?)`,
-                        { replacements: [products.map(p => p.id_product)] }
-                    );
-
-                    const productMap = {};
-                    productDetails.forEach(p => {
-                        productMap[p.id_product] = p.name_product;
-                    });
-
-                    const ghnItems = products.map(p => ({
-                        id_product: p.id_product,
-                        name: productMap[p.id_product] || 'Sản phẩm',
-                        code: p.id_product.toString(),
-                        quantity: p.quantity,
-                        price: p.price
-                    }));
-
-                    const ghnOrderData = {
-                        orderId,
-                        receiverName: receiverInfo.name,
-                        receiverPhone: receiverInfo.phone,
-                        receiverAddress: `${shippingAddress.detail}, ${shippingAddress.ward}, ${shippingAddress.district}, ${shippingAddress.province}`,
-                        provinceId: shippingAddress.provinceId,
-                        districtId: shippingAddress.districtId,
-                        wardCode: shippingAddress.wardCode,
-                        items: ghnItems,
-                        codAmount: totalAmount,
-                        shippingFee: shippingFee,
-                        note: ''
-                    };
-
-                    console.log('GHN Order Data:', JSON.stringify(ghnOrderData, null, 2));
-
-                    const ghnResult = await createGHNOrder(ghnOrderData);
-
-                    console.log('GHN Result:', JSON.stringify(ghnResult, null, 2));
-
-                    if (ghnResult.success) {
-                        ghnOrderCode = ghnResult.data.order_code;
-                        // Cập nhật mã vận đơn GHN vào database
-                        await sequelize.query(
-                            'UPDATE orders SET ghn_order_code = ? WHERE id = ?',
-                            { replacements: [ghnOrderCode, orderId] }
-                        );
-                        console.log('✓ GHN order created successfully:', ghnOrderCode);
-                    } else {
-                        console.error('✗ Failed to create GHN order:', ghnResult.message);
-                    }
-                } catch (ghnError) {
-                    console.error('✗ GHN integration error:', ghnError.message);
-                    console.error('Full error:', ghnError);
-                    // Không throw error, đơn hàng vẫn được tạo thành công
-                }
-            }
+            // 5. Tạo đơn hàng trên Giao Hàng Nhanh (nếu COD) - DISABLED
+            // let ghnOrderCode = null;
+            // if (paymentMethod === 'cod') {
+            //     try {
+            //         console.log('Starting GHN order creation for:', orderId);
+            //         const [productDetails] = await sequelize.query(
+            //             `SELECT p.name_product, p.id_product FROM product p WHERE p.id_product IN (?)`,
+            //             { replacements: [products.map(p => p.id_product)] }
+            //         );
+            //         const productMap = {};
+            //         productDetails.forEach(p => {
+            //             productMap[p.id_product] = p.name_product;
+            //         });
+            //         const ghnItems = products.map(p => ({
+            //             id_product: p.id_product,
+            //             name: productMap[p.id_product] || 'Sản phẩm',
+            //             code: p.id_product.toString(),
+            //             quantity: p.quantity,
+            //             price: p.price
+            //         }));
+            //         const ghnOrderData = {
+            //             orderId,
+            //             receiverName: receiverInfo.name,
+            //             receiverPhone: receiverInfo.phone,
+            //             receiverAddress: `${shippingAddress.detail}, ${shippingAddress.ward}, ${shippingAddress.district}, ${shippingAddress.province}`,
+            //             provinceId: shippingAddress.provinceId,
+            //             districtId: shippingAddress.districtId,
+            //             wardCode: shippingAddress.wardCode,
+            //             items: ghnItems,
+            //             codAmount: totalAmount,
+            //             shippingFee: shippingFee,
+            //             note: ''
+            //         };
+            //         console.log('GHN Order Data:', JSON.stringify(ghnOrderData, null, 2));
+            //         const ghnResult = await createGHNOrder(ghnOrderData);
+            //         console.log('GHN Result:', JSON.stringify(ghnResult, null, 2));
+            //         if (ghnResult.success) {
+            //             ghnOrderCode = ghnResult.data.order_code;
+            //             await sequelize.query(
+            //                 'UPDATE orders SET ghn_order_code = ? WHERE id = ?',
+            //                 { replacements: [ghnOrderCode, orderId] }
+            //             );
+            //             console.log('✓ GHN order created successfully:', ghnOrderCode);
+            //         } else {
+            //             console.error('✗ Failed to create GHN order:', ghnResult.message);
+            //         }
+            //     } catch (ghnError) {
+            //         console.error('✗ GHN integration error:', ghnError.message);
+            //         console.error('Full error:', ghnError);
+            //     }
+            // }
 
             return res.json({
                 success: true,
                 message: paymentMethod === 'cod'
-                    ? 'Đặt hàng thành công' + (ghnOrderCode ? '. Đơn hàng đã được đồng bộ với GHN' : '')
+                    ? 'Đặt hàng thành công'
                     : 'Đơn hàng đã được tạo, vui lòng thanh toán',
                 data: {
                     orderId,
                     paymentMethod,
-                    totalAmount,
-                    ghnOrderCode
+                    totalAmount
                 }
             });
 

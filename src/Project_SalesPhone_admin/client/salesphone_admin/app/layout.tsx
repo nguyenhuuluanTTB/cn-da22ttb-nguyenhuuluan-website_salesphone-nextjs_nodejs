@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "./components/header/header";
+import AuthGuard from "./components/AuthGuard";
 
 
 export const metadata = {
@@ -15,9 +16,10 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body>
-        <Header />
-        {children}
-        
+        <AuthGuard>
+          <Header />
+          {children}
+        </AuthGuard>
       </body>
     </html>
   );

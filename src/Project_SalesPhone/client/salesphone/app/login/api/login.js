@@ -6,9 +6,15 @@ export const loginWithGoogle = async (idToken) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ idToken }),
   });
-  const data = await res.json();
+  let data = null;
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
   if (!res.ok) {
-    throw data;
+    const err = (data && typeof data === 'object') ? data : {};
+    throw { status: res.status, ...err };
   }
   else {
     if (data.token) {
@@ -24,9 +30,15 @@ export const login = async (formData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
   });
-  const data = await res.json();
+  let data = null;
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
   if (!res.ok) {
-    throw data;
+    const err = (data && typeof data === 'object') ? data : {};
+    throw { status: res.status, ...err };
   }
   else {
     if (data.token) {

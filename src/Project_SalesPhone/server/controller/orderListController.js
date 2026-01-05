@@ -23,11 +23,9 @@ exports.getUserOrders = async (req, res) => {
                 o.shipping_fee,
                 o.status,
                 o.payment_status,
-                o.payment_method,
                 o.receiver_name,
                 o.shipping_phone,
                 o.shipping_address,
-                o.ghn_order_code,
                 o.created_at,
                 o.updated_at
              FROM orders o

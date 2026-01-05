@@ -12,7 +12,7 @@ async function addProduct_TruyVan(data) {
             `
             INSERT INTO product 
             (name_product, price, type, brand, quantity, status, product_code, rate)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 4.5)
             `,
             {
                 replacements: [

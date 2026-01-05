@@ -90,6 +90,7 @@ export default function ManageProduct() {
     const [display_update_product, setDisplay_update_product] = useState(false)
     const [display_notification, set_display_notification] = useState(false);
     const [display_notification_del, set_display_notification_del] = useState(false);
+    const [display_notification_add, set_display_notification_add] = useState(false);
     const [name_btn_del, setNameBtnDel] = useState(true);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);  // For image slideshow
 
@@ -312,8 +313,13 @@ export default function ManageProduct() {
                 throw new Error('http error');
             }
 
-            alert('Thêm sản phẩm thành công!');
+            set_display_notification_add(true);
             setDisplay_add_product(false);
+
+            // Ẩn notification sau 3 giây (nếu không click)
+            setTimeout(() => {
+                set_display_notification_add(false);
+            }, 3000);
 
             // Reset form
             setName_product('');
@@ -1366,6 +1372,13 @@ export default function ManageProduct() {
             <div className={display_notification_del ? styles.container_notification : styles.notification_none} onClick={() => { set_display_notification_del(false); reload_page() }}>
                 <div className={styles.notification}>
                     <span>Đã cập ẩn sản phẩm thành công!</span>
+                    <FaCheckCircle style={{ color: 'green', fontSize: '50pt' }} />
+                </div>
+            </div>
+
+            <div className={display_notification_add ? styles.container_notification : styles.notification_none} onClick={() => { set_display_notification_add(false); fetchAllProduct(); }}>
+                <div className={styles.notification}>
+                    <span>Đã thêm sản phẩm thành công!</span>
                     <FaCheckCircle style={{ color: 'green', fontSize: '50pt' }} />
                 </div>
             </div>

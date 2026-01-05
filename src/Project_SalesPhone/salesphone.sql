@@ -706,3 +706,6 @@ SELECT
                 WHERE p.price < 5000000
                 ORDER BY p.id_product DESC
                 LIMIT 15;
+
+
+
